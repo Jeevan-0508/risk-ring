@@ -4,6 +4,8 @@ Financial-crime network intelligence: a trained fraud classifier with honest
 metrics, SHAP explainability, and graph-based collusion-ring detection,
 evaluated against known ground truth instead of asserted.
 
+**Live: [jeevan-0508.github.io/risk-ring](https://jeevan-0508.github.io/risk-ring/)**
+
 Part of the RISK// family alongside [risk-os](https://github.com/Jeevan-0508/risk-os),
 [risk-replay](https://github.com/Jeevan-0508/risk-replay) and
 [risk-swarm](https://github.com/Jeevan-0508/risk-swarm).
