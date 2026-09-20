@@ -1,0 +1,24 @@
+{
+  "dataset": {
+    "total_transactions": 20373,
+    "fraud_transactions": 576,
+    "fraud_rate_pct": 2.827,
+    "rings": 20,
+    "train_rows": 14261,
+    "test_rows": 6112
+  },
+  "logistic_regression": {
+    "precision": 0.7295,
+    "recall": 1.0,
+    "f1": 0.8436,
+    "roc_auc": 0.9993,
+    "pr_auc": 0.9599
+  },
+  "xgboost": {
+    "precision": 0.8207,
+    "recall": 1.0,
+    "f1": 0.9015,
+    "roc_auc": 0.9999,
+    "pr_auc": 0.9953
+  }
+}
