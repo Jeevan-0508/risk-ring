@@ -79,7 +79,8 @@ def evaluate_against_ground_truth(G, partition, df):
 
 
 def main():
-    df = pd.read_csv(f"{OUT_DIR}/all_scored.csv")
+    df = pd.read_csv(f"{OUT_DIR}/all_scored.csv", dtype={"orig": str, "dest": str, "tx_type": str, "ring_id": str, "typology": str})
+    df[["ring_id", "typology"]] = df[["ring_id", "typology"]].fillna("")
     G, seed_accounts = build_seed_subgraph(df)
     print(f"Seed subgraph: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges, "
           f"{len(seed_accounts)} seed accounts")

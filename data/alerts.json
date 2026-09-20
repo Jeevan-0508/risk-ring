@@ -7,7 +7,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "004",
     "typology": "layering",
     "top_factors": [
       {
@@ -36,7 +36,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -65,7 +65,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -94,7 +94,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -123,7 +123,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "004",
     "typology": "layering",
     "top_factors": [
       {
@@ -152,7 +152,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "004",
     "typology": "layering",
     "top_factors": [
       {
@@ -181,7 +181,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "004",
     "typology": "layering",
     "top_factors": [
       {
@@ -210,7 +210,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "017",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -239,7 +239,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "013",
     "typology": "layering",
     "top_factors": [
       {
@@ -268,7 +268,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -297,7 +297,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "017",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -326,7 +326,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -355,7 +355,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "016",
     "typology": "layering",
     "top_factors": [
       {
@@ -384,7 +384,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "017",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -413,7 +413,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "017",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -442,7 +442,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -471,7 +471,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "002",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -500,7 +500,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "017",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -529,7 +529,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "002",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -558,7 +558,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "013",
     "typology": "layering",
     "top_factors": [
       {
@@ -587,7 +587,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "002",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -616,7 +616,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "002",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -645,7 +645,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "011",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -674,7 +674,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "002",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -703,7 +703,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "013",
     "typology": "layering",
     "top_factors": [
       {
@@ -732,7 +732,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "002",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -761,7 +761,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -790,7 +790,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -819,7 +819,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "002",
     "typology": "round_trip",
     "top_factors": [
       {
@@ -848,7 +848,7 @@
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "",
+    "ring_id": "017",
     "typology": "round_trip",
     "top_factors": [
       {

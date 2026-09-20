@@ -100,7 +100,8 @@ def evaluate(y_true, y_score, y_pred):
 
 
 def main():
-    df = pd.read_csv(DATA_PATH)
+    df = pd.read_csv(DATA_PATH, dtype={"orig": str, "dest": str, "tx_type": str, "ring_id": str, "typology": str})
+    df[["ring_id", "typology"]] = df[["ring_id", "typology"]].fillna("")
     df = engineer_features(df)
 
     train, test = time_split(df)

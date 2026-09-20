@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISK//RING — Financial Crime Network Intelligence</title>
+<meta name="description" content="A trained fraud classifier with honest metrics, SHAP explainability, and graph-based collusion-ring detection, evaluated against known ground truth.">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
+<style>
+:root{
+  --bg:#0f1117;--surface:#1a1d27;--surface2:#22263a;--surface3:#2a2f4a;
+  --accent:#6366f1;--accent2:#818cf8;--accent3:#4f46e5;--accent4:#c7d2fe;
+  --text:#e2e8f0;--muted:#94a3b8;--border:#2d3150;
+  --danger:#ef4444;--warning:#f59e0b;--success:#22c55e;--info:#3b82f6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;display:flex;flex-direction:column}
+::selection{background:rgba(99,102,241,.35);color:#fff}
+
+header{background:rgba(15,17,23,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:200;height:60px}
+.logo-wrap{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo{width:36px;height:36px;background:linear-gradient(135deg,#4f46e5,#818cf8);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.logo-text{font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.logo-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.header-actions{margin-left:auto;display:flex;align-items:center;gap:12px}
+.gh-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:7px;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-size:12px;font-weight:600;text-decoration:none}
+.gh-btn:hover{border-color:var(--accent);color:var(--accent2)}
+.synthetic-pill{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.4);color:#86efac;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px}
+
+.mainnav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:2px;position:sticky;top:60px;z-index:190;overflow-x:auto}
+.mainnav-btn{padding:14px 18px;font-size:13px;font-weight:600;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;font-family:inherit}
+.mainnav-btn.active{color:var(--accent2);border-bottom-color:var(--accent)}
+.mainnav-btn:hover:not(.active){color:var(--text)}
+
+.stat-bar{display:flex;justify-content:center;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface)}
+.stat-item{flex:1;min-width:150px;max-width:220px;text-align:center;padding:18px 12px;border-right:1px solid var(--border)}
+.stat-item:last-child{border-right:none}
+.stat-val{font-size:24px;font-weight:800;color:var(--accent2);line-height:1}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.4}
+
+main{flex:1;max-width:1200px;margin:0 auto;width:100%;padding:32px 24px 80px}
+.screen{display:none}
+.screen.active{display:block}
+h2.screen-title{font-size:22px;font-weight:800;margin-bottom:6px;letter-spacing:-.3px}
+p.screen-sub{color:var(--muted);font-size:14px;margin-bottom:24px;max-width:700px}
+
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+thead th{background:var(--surface2);text-align:left;padding:10px 14px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border)}
+tbody td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--border)}
+tbody tr{cursor:pointer;transition:background .15s}
+tbody tr:hover{background:var(--surface2)}
+tbody tr:last-child td{border-bottom:none}
+.mono{font-family:"SF Mono",Consolas,monospace;font-size:12px;color:var(--muted)}
+.risk-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.risk-hi{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.4)}
+.risk-md{background:rgba(245,158,11,.15);color:#fcd34d;border:1px solid rgba(245,158,11,.4)}
+.ring-badge{background:rgba(99,102,241,.15);color:var(--accent4);border:1px solid rgba(99,102,241,.4);padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
+
+.detail-panel{margin-top:20px;background:var(--surface);border:1px solid var(--accent);border-radius:12px;padding:24px;display:none}
+.detail-panel.open{display:block}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:800px){.detail-grid{grid-template-columns:1fr}}
+.detail-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.detail-head h3{font-size:16px;font-weight:700}
+.close-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px}
+.chart-wrap{height:220px}
+.graph-wrap{height:260px;border:1px solid var(--border);border-radius:8px;background:var(--surface2)}
+.field-row{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid var(--border)}
+.field-row span:first-child{color:var(--muted)}
+
+.ring-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.ring-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
+.ring-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.ring-card-head b{font-size:13px}
+.typology-pill{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px}
+.typology-smurfing{background:rgba(245,158,11,.15);color:#fcd34d}
+.typology-layering{background:rgba(239,68,68,.15);color:#fca5a5}
+.typology-round_trip{background:rgba(59,130,246,.15);color:#93c5fd}
+.ring-graph{height:180px;border-radius:8px;background:var(--surface2);border:1px solid var(--border)}
+.ring-metrics{display:flex;gap:12px;margin-top:10px;font-size:12px;color:var(--muted)}
+.ring-metrics b{color:var(--text)}
+
+.method-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;max-width:800px;line-height:1.8;font-size:14px}
+.method-box h3{font-size:15px;margin:20px 0 8px;color:var(--accent2)}
+.method-box h3:first-child{margin-top:0}
+.method-box code{background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:12px}
+.method-box ul{padding-left:20px;margin:8px 0}
+
+footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-size:12px;color:var(--muted)}
+footer a{color:var(--accent2);text-decoration:none}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo-wrap" href="#">
+    <div class="logo">🕸️</div>
+    <div>
+      <div class="logo-text">RISK//RING</div>
+      <div class="logo-sub">Financial crime network intelligence</div>
+    </div>
+  </a>
+  <div class="header-actions">
+    <span class="synthetic-pill">● synthetic data, nothing real</span>
+    <a class="gh-btn" href="https://github.com/Jeevan-0508/risk-ring" target="_blank">GitHub ↗</a>
+  </div>
+</header>
+
+<nav class="mainnav">
+  <button class="mainnav-btn active" data-screen="alerts">Alert Queue</button>
+  <button class="mainnav-btn" data-screen="rings">Ring Explorer</button>
+  <button class="mainnav-btn" data-screen="methodology">Methodology</button>
+</nav>
+
+<div class="stat-bar" id="statBar"></div>
+
+<main>
+  <section class="screen active" id="screen-alerts">
+    <h2 class="screen-title">Alert Queue</h2>
+    <p class="screen-sub">Top-scored transactions from the held-out test set, ranked by the XGBoost classifier. Click a row to see why it was flagged.</p>
+    <table>
+      <thead><tr><th>Risk</th><th>TX ID</th><th>Orig</th><th>Dest</th><th>Amount</th><th>Type</th><th>Ring</th></tr></thead>
+      <tbody id="alertsBody"></tbody>
+    </table>
+    <div class="detail-panel" id="detailPanel">
+      <div class="detail-head"><h3 id="detailTitle"></h3><button class="close-btn" id="closeDetail">Close ✕</button></div>
+      <div class="detail-grid">
+        <div>
+          <div class="field-row"><span>Origin</span><span id="dOrig" class="mono"></span></div>
+          <div class="field-row"><span>Destination</span><span id="dDest" class="mono"></span></div>
+          <div class="field-row"><span>Amount</span><span id="dAmount"></span></div>
+          <div class="field-row"><span>Type</span><span id="dType"></span></div>
+          <div class="field-row"><span>Risk score</span><span id="dScore"></span></div>
+          <div class="field-row"><span>Ground truth</span><span id="dTruth"></span></div>
+          <div class="chart-wrap"><canvas id="shapChart"></canvas></div>
+        </div>
+        <div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:8px">Ring neighborhood (if this transaction belongs to a recovered ring)</p>
+          <div class="graph-wrap" id="detailGraph"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="screen-rings">
+    <h2 class="screen-title">Ring Explorer</h2>
+    <p class="screen-sub">Collusion rings recovered by seeding a network from the model's riskiest transactions and running community detection, scored against the ground truth the simulator recorded.</p>
+    <div class="ring-grid" id="ringGrid"></div>
+  </section>
+
+  <section class="screen" id="screen-methodology">
+    <h2 class="screen-title">Methodology</h2>
+    <div class="method-box">
+      <h3>Why simulated data</h3>
+      <p>Real transaction data can't legally be shared, and the standard public fraud dataset (Kaggle's <code>creditcard.csv</code>) has no account IDs, so it can't support network analysis. This project simulates a transaction network with 20 injected money-laundering rings running FATF-documented typologies (structuring/smurfing, layering, round-tripping), so ground truth exists and detection quality can be measured, not claimed.</p>
+      <h3>Classifier</h3>
+      <p>Features are computed causally (no peeking at the future). Train/test split is time-based, not a random shuffle. XGBoost vs. a logistic regression baseline, evaluated on precision/recall/PR-AUC, the honest metrics for a ~3% fraud rate, not raw accuracy.</p>
+      <h3>Explainability</h3>
+      <p>Every flagged transaction carries its top SHAP-contributing features, the same style of explanation a compliance audit trail requires.</p>
+      <h3>Graph ring recovery</h3>
+      <p>A subgraph is seeded from the top 5% riskiest transactions, expanded to direct counterparties, then clustered with Louvain community detection. Resolution was swept from 1 to 20 and chosen at 12: the default resolution recovers most of each ring (0.82 recall) but the communities are too coarse to act on (0.07 precision, mostly unrelated accounts pulled in via camouflage transactions). Resolution 12 trades a little recall for communities an investigator could plausibly use (0.77 recall / 0.76 precision).</p>
+      <p>Full write-up, citations and code: <a href="https://github.com/Jeevan-0508/risk-ring" target="_blank">github.com/Jeevan-0508/risk-ring</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  RISK//RING — part of the <a href="https://jeevan-0508.github.io" target="_blank">RISK// portfolio</a>. All data on this page is synthetic. MIT licensed.
+</footer>
+
+<script>
+const METRICS = {"dataset": {"total_transactions": 20373, "fraud_transactions": 576, "fraud_rate_pct": 2.827, "rings": 20, "train_rows": 14261, "test_rows": 6112}, "logistic_regression": {"precision": 0.7295, "recall": 1.0, "f1": 0.8436, "roc_auc": 0.9993, "pr_auc": 0.9599}, "xgboost": {"precision": 0.8207, "recall": 1.0, "f1": 0.9015, "roc_auc": 0.9999, "pr_auc": 0.9953}};
+const GRAPH_METRICS = {"seed_percentile": 0.95, "subgraph_nodes": 2104, "subgraph_edges": 10365, "communities_detected": 227, "avg_ring_recall": 0.771, "avg_ring_precision": 0.764, "rings_recovered_ge_30pct": 20, "total_true_rings": 20, "per_ring": [{"ring_id": "010", "typology": "layering", "recall": 1.0, "precision": 0.714, "true_size": 5, "matched_community_size": 7}, {"ring_id": "015", "typology": "smurfing", "recall": 0.545, "precision": 0.6, "true_size": 11, "matched_community_size": 10}, {"ring_id": "007", "typology": "layering", "recall": 1.0, "precision": 0.6, "true_size": 6, "matched_community_size": 10}, {"ring_id": "013", "typology": "layering", "recall": 0.833, "precision": 0.714, "true_size": 6, "matched_community_size": 7}, {"ring_id": "000", "typology": "smurfing", "recall": 0.429, "precision": 0.667, "true_size": 14, "matched_community_size": 9}, {"ring_id": "004", "typology": "layering", "recall": 0.833, "precision": 0.833, "true_size": 6, "matched_community_size": 6}, {"ring_id": "008", "typology": "round_trip", "recall": 1.0, "precision": 1.0, "true_size": 3, "matched_community_size": 3}, {"ring_id": "001", "typology": "layering", "recall": 0.833, "precision": 0.833, "true_size": 6, "matched_community_size": 6}, {"ring_id": "005", "typology": "round_trip", "recall": 1.0, "precision": 0.8, "true_size": 4, "matched_community_size": 5}, {"ring_id": "012", "typology": "smurfing", "recall": 0.444, "precision": 0.444, "true_size": 9, "matched_community_size": 9}, {"ring_id": "009", "typology": "smurfing", "recall": 0.455, "precision": 0.714, "true_size": 11, "matched_community_size": 7}, {"ring_id": "019", "typology": "layering", "recall": 0.833, "precision": 0.833, "true_size": 6, "matched_community_size": 6}, {"ring_id": "017", "typology": "round_trip", "recall": 1.0, "precision": 1.0, "true_size": 4, "matched_community_size": 4}, {"ring_id": "006", "typology": "smurfing", "recall": 0.5, "precision": 0.75, "true_size": 12, "matched_community_size": 8}, {"ring_id": "011", "typology": "round_trip", "recall": 1.0, "precision": 0.5, "true_size": 4, "matched_community_size": 8}, {"ring_id": "002", "typology": "round_trip", "recall": 1.0, "precision": 1.0, "true_size": 4, "matched_community_size": 4}, {"ring_id": "014", "typology": "round_trip", "recall": 1.0, "precision": 1.0, "true_size": 4, "matched_community_size": 4}, {"ring_id": "003", "typology": "smurfing", "recall": 0.5, "precision": 0.556, "true_size": 10, "matched_community_size": 9}, {"ring_id": "018", "typology": "smurfing", "recall": 0.385, "precision": 1.0, "true_size": 13, "matched_community_size": 5}, {"ring_id": "016", "typology": "layering", "recall": 0.833, "precision": 0.714, "true_size": 6, "matched_community_size": 7}]};
+const ALERTS = [{"tx_id": "T0016189", "orig": "R004_hop0", "dest": "R004_hop1", "amount": 39474.17, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "004", "typology": "layering", "top_factors": [{"feature": "amount", "shap_value": 6.0471}, {"feature": "pair_prior_count", "shap_value": 2.7732}, {"feature": "dest_tx_count_prior", "shap_value": 2.6019}, {"feature": "near_threshold", "shap_value": 1.3455}]}, {"tx_id": "T0017306", "orig": "R005_loop1", "dest": "R005_loop2", "amount": 7156.25, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "005", "typology": "round_trip", "top_factors": [{"feature": "pair_prior_count", "shap_value": 3.9504}, {"feature": "amount", "shap_value": 3.4814}, {"feature": "dest_tx_count_prior", "shap_value": 2.5262}, {"feature": "near_threshold", "shap_value": 0.913}]}, {"tx_id": "T0015895", "orig": "R005_loop1", "dest": "R005_loop2", "amount": 5202.1, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "005", "typology": "round_trip", "top_factors": [{"feature": "pair_prior_count", "shap_value": 4.4995}, {"feature": "amount", "shap_value": 3.5742}, {"feature": "dest_tx_count_prior", "shap_value": 1.8973}, {"feature": "near_threshold", "shap_value": 1.1427}]}, {"tx_id": "T0018003", "orig": "R005_loop1", "dest": "R005_loop2", "amount": 5442.63, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "005", "typology": "round_trip", "top_factors": [{"feature": "pair_prior_count", "shap_value": 3.7189}, {"feature": "amount", "shap_value": 3.2658}, {"feature": "dest_tx_count_prior", "shap_value": 3.0373}, {"feature": "near_threshold", "shap_value": 1.0222}]}, {"tx_id": "T0016252", "orig": "R004_hop2", "dest": "R004_hop3", "amount": 35985.14, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "004", "typology": "layering", "top_factors": [{"feature": "amount", "shap_value": 5.7345}, {"feature": "dest_tx_count_prior", "shap_value": 3.9989}, {"feature": "pair_prior_count", "shap_value": 2.642}, {"feature": "near_threshold", "shap_value": 1.1312}]}, {"tx_id": "T0016245", "orig": "R004_hop1", "dest": "R004_hop2", "amount": 38019.52, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "004", "typology": "layering", "top_factors": [{"feature": "amount", "shap_value": 5.8192}, {"feature": "dest_tx_count_prior", "shap_value": 3.3349}, {"feature": "pair_prior_count", "shap_value": 2.741}, {"feature": "near_threshold", "shap_value": 1.3611}]}, {"tx_id": "T0015483", "orig": "R004_hop0", "dest": "R004_hop1", "amount": 38622.54, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "004", "typology": "layering", "top_factors": [{"feature": "amount", "shap_value": 6.0583}, {"feature": "pair_prior_count", "shap_value": 2.7685}, {"feature": "dest_tx_count_prior", "shap_value": 1.8249}, {"feature": "near_threshold", "shap_value": 0.9916}]}, {"tx_id": "T0017547", "orig": "R017_loop0", "dest": "R017_loop1", "amount": 6243.02, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "017", "typology": "round_trip", "top_factors": [{"feature": "dest_tx_count_prior", "shap_value": 4.4127}, {"feature": "pair_prior_count", "shap_value": 4.2018}, {"feature": "amount", "shap_value": 3.1432}, {"feature": "dest_fanin_prior", "shap_value": -1.1358}]}, {"tx_id": "T0015685", "orig": "R013_hop2", "dest": "R013_hop3", "amount": 31026.82, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "013", "typology": "layering", "top_factors": [{"feature": "amount", "shap_value": 5.8718}, {"feature": "pair_prior_count", "shap_value": 3.3446}, {"feature": "dest_tx_count_prior", "shap_value": 1.4087}, {"feature": "orig_tx_count_prior", "shap_value": 0.9598}]}, {"tx_id": "T0017417", "orig": "R005_loop3", "dest": "R005_loop0", "amount": 7236.15, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "005", "typology": "round_trip", "top_factors": [{"feature": "dest_tx_count_prior", "shap_value": 4.45}, {"feature": "pair_prior_count", "shap_value": 4.2084}, {"feature": "amount", "shap_value": 3.2313}, {"feature": "dest_fanin_prior", "shap_value": -1.2287}]}, {"tx_id": "T0018023", "orig": "R017_loop0", "dest": "R017_loop1", "amount": 7287.59, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "017", "typology": "round_trip", "top_factors": [{"feature": "dest_tx_count_prior", "shap_value": 4.5298}, {"feature": "pair_prior_count", "shap_value": 4.1293}, {"feature": "amount", "shap_value": 3.2396}, {"feature": "dest_fanin_prior", "shap_value": -1.2505}]}, {"tx_id": "T0018277", "orig": "R005_loop3", "dest": "R005_loop0", "amount": 5435.54, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "005", "typology": "round_trip", "top_factors": [{"feature": "dest_tx_count_prior", "shap_value": 4.2327}, {"feature": "pair_prior_count", "shap_value": 4.1093}, {"feature": "amount", "shap_value": 3.0862}, {"feature": "dest_fanin_prior", "shap_value": -1.0771}]}, {"tx_id": "T0018391", "orig": "R016_hop2", "dest": "R016_hop3", "amount": 21267.59, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "016", "typology": "layering", "top_factors": [{"feature": "amount", "shap_value": 5.175}, {"feature": "dest_tx_count_prior", "shap_value": 3.3492}, {"feature": "pair_prior_count", "shap_value": 2.743}, {"feature": "orig_fanout_prior", "shap_value": -0.9797}]}, {"tx_id": "T0017233", "orig": "R017_loop0", "dest": "R017_loop1", "amount": 6289.91, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "017", "typology": "round_trip", "top_factors": [{"feature": "dest_tx_count_prior", "shap_value": 4.3566}, {"feature": "pair_prior_count", "shap_value": 4.1849}, {"feature": "amount", "shap_value": 3.1144}, {"feature": "dest_fanin_prior", "shap_value": -1.2165}]}, {"tx_id": "T0018160", "orig": "R017_loop1", "dest": "R017_loop2", "amount": 7234.51, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "017", "typology": "round_trip", "top_factors": [{"feature": "pair_prior_count", "shap_value": 3.8976}, {"feature": "dest_tx_count_prior", "shap_value": 3.7436}, {"feature": "amount", "shap_value": 3.3039}, {"feature": "near_threshold", "shap_value": 1.0267}]}, {"tx_id": "T0016139", "orig": "R005_loop3", "dest": "R005_loop0", "amount": 5047.95, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "005", "typology": "round_trip", "top_factors": [{"feature": "dest_tx_count_prior", "shap_value": 4.3493}, {"feature": "pair_prior_count", "shap_value": 4.1232}, {"feature": "amount", "shap_value": 2.8905}, {"feature": "dest_fanin_prior", "shap_value": -1.1713}]}, {"tx_id": "T0014539", "orig": "R002_loop0", "dest": "R002_loop1", "amount": 7059.22, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "002", "typology": "round_trip", "top_factors": [{"feature": "pair_prior_count", "shap_value": 4.7387}, {"feature": "amount", "shap_value": 3.4352}, {"feature": "dest_tx_count_prior", "shap_value": 2.5151}, {"feature": "near_threshold", "shap_value": 1.1977}]}, {"tx_id": "T0018260", "orig": "R017_loop2", "dest": "R017_loop3", "amount": 7316.84, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "017", "typology": "round_trip", "top_factors": [{"feature": "dest_tx_count_prior", "shap_value": 4.4627}, {"feature": "pair_prior_count", "shap_value": 4.1466}, {"feature": "amount", "shap_value": 3.2502}, {"feature": "near_threshold", "shap_value": 1.0427}]}, {"tx_id": "T0017122", "orig": "R002_loop2", "dest": "R002_loop0", "amount": 7087.89, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "002", "typology": "round_trip", "top_factors": [{"feature": "pair_prior_count", "shap_value": 4.4869}, {"feature": "dest_tx_count_prior", "shap_value": 4.3581}, {"feature": "amount", "shap_value": 3.1088}, {"feature": "dest_fanin_prior", "shap_value": -1.3121}]}, {"tx_id": "T0015563", "orig": "R013_hop0", "dest": "R013_hop1", "amount": 33881.71, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "013", "typology": "layering", "top_factors": [{"feature": "amount", "shap_value": 5.9879}, {"feature": "pair_prior_count", "shap_value": 3.048}, {"feature": "dest_tx_count_prior", "shap_value": 1.9846}, {"feature": "near_threshold", "shap_value": 0.9863}]}, {"tx_id": "T0016822", "orig": "R002_loop0", "dest": "R002_loop1", "amount": 5164.34, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "002", "typology": "round_trip", "top_factors": [{"feature": "pair_prior_count", "shap_value": 3.824}, {"feature": "dest_tx_count_prior", "shap_value": 3.46}, {"feature": "amount", "shap_value": 3.1594}, {"feature": "near_threshold", "shap_value": 1.0328}]}, {"tx_id": "T0016984", "orig": "R002_loop2", "dest": "R002_loop0", "amount": 5281.3, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "002", "typology": "round_trip", "top_factors": [{"feature": "pair_prior_count", "shap_value": 4.0412}, {"feature": "dest_tx_count_prior", "shap_value": 3.9937}, {"feature": "amount", "shap_value": 3.1157}, {"feature": "dest_fanin_prior", "shap_value": -1.1306}]}, {"tx_id": "T0014390", "orig": "R011_loop2", "dest": "R011_loop0", "amount": 6231.03, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "011", "typology": "round_trip", "top_factors": [{"feature": "dest_tx_count_prior", "shap_value": 4.2978}, {"feature": "pair_prior_count", "shap_value": 4.0463}, {"feature": "amount", "shap_value": 3.118}, {"feature": "dest_fanin_prior", "shap_value": -1.2856}]}, {"tx_id": "T0017069", "orig": "R002_loop0", "dest": "R002_loop1", "amount": 7137.04, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "002", "typology": "round_trip", "top_factors": [{"feature": "pair_prior_count", "shap_value": 3.9054}, {"feature": "dest_tx_count_prior", "shap_value": 3.5753}, {"feature": "amount", "shap_value": 3.2703}, {"feature": "near_threshold", "shap_value": 1.0335}]}, {"tx_id": "T0015610", "orig": "R013_hop1", "dest": "R013_hop2", "amount": 32800.27, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "013", "typology": "layering", "top_factors": [{"feature": "amount", "shap_value": 5.8178}, {"feature": "pair_prior_count", "shap_value": 2.5896}, {"feature": "dest_tx_count_prior", "shap_value": 2.1094}, {"feature": "near_threshold", "shap_value": 0.8809}]}, {"tx_id": "T0014561", "orig": "R002_loop1", "dest": "R002_loop2", "amount": 6948.44, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "002", "typology": "round_trip", "top_factors": [{"feature": "dest_tx_count_prior", "shap_value": 4.3051}, {"feature": "pair_prior_count", "shap_value": 4.2901}, {"feature": "amount", "shap_value": 3.1855}, {"feature": "dest_fanin_prior", "shap_value": -1.2341}]}, {"tx_id": "T0017181", "orig": "R005_loop0", "dest": "R005_loop1", "amount": 7304.57, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "005", "typology": "round_trip", "top_factors": [{"feature": "pair_prior_count", "shap_value": 4.0518}, {"feature": "dest_tx_count_prior", "shap_value": 3.717}, {"feature": "amount", "shap_value": 3.2915}, {"feature": "orig_fanout_prior", "shap_value": -0.97}]}, {"tx_id": "T0016063", "orig": "R005_loop2", "dest": "R005_loop3", "amount": 5010.52, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "005", "typology": "round_trip", "top_factors": [{"feature": "pair_prior_count", "shap_value": 3.9508}, {"feature": "dest_tx_count_prior", "shap_value": 3.2336}, {"feature": "amount", "shap_value": 2.9509}, {"feature": "near_threshold", "shap_value": 1.026}]}, {"tx_id": "T0016217", "orig": "R002_loop1", "dest": "R002_loop2", "amount": 4870.01, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "002", "typology": "round_trip", "top_factors": [{"feature": "dest_tx_count_prior", "shap_value": 4.2696}, {"feature": "pair_prior_count", "shap_value": 4.1875}, {"feature": "amount", "shap_value": 2.9178}, {"feature": "near_threshold", "shap_value": 1.0495}]}, {"tx_id": "T0018318", "orig": "R017_loop3", "dest": "R017_loop0", "amount": 7439.82, "tx_type": "TRANSFER", "risk_score": 1.0, "is_fraud_ground_truth": 1, "ring_id": "017", "typology": "round_trip", "top_factors": [{"feature": "dest_tx_count_prior", "shap_value": 4.2023}, {"feature": "pair_prior_count", "shap_value": 4.0091}, {"feature": "amount", "shap_value": 3.2616}, {"feature": "dest_fanin_prior", "shap_value": -1.0664}]}];
+const RINGS = [{"ring_id": "010", "typology": "layering", "recall": 1.0, "precision": 0.714, "nodes": [{"id": "R010_hop3"}, {"id": "R010_hop1"}, {"id": "R010_hop0"}, {"id": "R010_hop2"}, {"id": "R010_hop4"}], "edges": [{"source": "R010_hop3", "target": "R010_hop2", "weight": 5}, {"source": "R010_hop3", "target": "R010_hop4", "weight": 4}, {"source": "R010_hop1", "target": "R010_hop0", "weight": 5}, {"source": "R010_hop1", "target": "R010_hop2", "weight": 5}]}, {"ring_id": "015", "typology": "smurfing", "recall": 0.545, "precision": 0.6, "nodes": [{"id": "R015_collector"}, {"id": "A01703"}, {"id": "R015_smurf0"}, {"id": "R015_smurf2"}, {"id": "R015_smurf4"}, {"id": "A00116"}, {"id": "R015_smurf1"}, {"id": "A01101"}, {"id": "A01881"}, {"id": "A00886"}, {"id": "R015_smurf3"}], "edges": [{"source": "R015_collector", "target": "R015_smurf4", "weight": 3}, {"source": "R015_collector", "target": "R015_smurf2", "weight": 5}, {"source": "R015_collector", "target": "R015_smurf1", "weight": 5}, {"source": "R015_collector", "target": "R015_smurf0", "weight": 5}, {"source": "R015_collector", "target": "R015_smurf3", "weight": 4}, {"source": "R015_collector", "target": "A01881", "weight": 1}, {"source": "R015_collector", "target": "A00116", "weight": 1}, {"source": "R015_collector", "target": "A00886", "weight": 1}, {"source": "R015_collector", "target": "A01101", "weight": 1}, {"source": "R015_collector", "target": "A01703", "weight": 1}]}, {"ring_id": "007", "typology": "layering", "recall": 1.0, "precision": 0.6, "nodes": [{"id": "R007_hop2"}, {"id": "R007_hop3"}, {"id": "R007_hop1"}, {"id": "R007_hop5"}, {"id": "R007_hop4"}, {"id": "R007_hop0"}], "edges": [{"source": "R007_hop2", "target": "R007_hop1", "weight": 3}, {"source": "R007_hop2", "target": "R007_hop3", "weight": 3}, {"source": "R007_hop3", "target": "R007_hop4", "weight": 3}, {"source": "R007_hop1", "target": "R007_hop0", "weight": 3}, {"source": "R007_hop5", "target": "R007_hop4", "weight": 3}]}, {"ring_id": "013", "typology": "layering", "recall": 0.833, "precision": 0.714, "nodes": [{"id": "R013_hop5"}, {"id": "R013_hop4"}, {"id": "R013_hop1"}, {"id": "R013_hop0"}, {"id": "R013_hop2"}, {"id": "R013_hop3"}], "edges": [{"source": "R013_hop5", "target": "R013_hop4", "weight": 1}, {"source": "R013_hop4", "target": "R013_hop3", "weight": 4}, {"source": "R013_hop1", "target": "R013_hop0", "weight": 6}, {"source": "R013_hop1", "target": "R013_hop2", "weight": 6}, {"source": "R013_hop2", "target": "R013_hop3", "weight": 6}]}, {"ring_id": "000", "typology": "smurfing", "recall": 0.429, "precision": 0.667, "nodes": [{"id": "A01559"}, {"id": "R000_smurf4"}, {"id": "R000_smurf5"}, {"id": "R000_smurf3"}, {"id": "R000_smurf2"}, {"id": "A00764"}, {"id": "R000_collector"}, {"id": "A01913"}, {"id": "A01046"}, {"id": "A01293"}, {"id": "A01693"}, {"id": "R000_smurf1"}, {"id": "A01525"}, {"id": "R000_smurf0"}], "edges": [{"source": "A01559", "target": "R000_collector", "weight": 1}, {"source": "R000_smurf4", "target": "R000_collector", "weight": 4}, {"source": "R000_smurf5", "target": "R000_collector", "weight": 2}, {"source": "R000_smurf3", "target": "R000_collector", "weight": 5}, {"source": "R000_smurf2", "target": "R000_collector", "weight": 7}, {"source": "A00764", "target": "R000_collector", "weight": 1}, {"source": "R000_collector", "target": "R000_smurf0", "weight": 7}, {"source": "R000_collector", "target": "R000_smurf1", "weight": 7}, {"source": "R000_collector", "target": "A01913", "weight": 1}, {"source": "R000_collector", "target": "A01293", "weight": 1}, {"source": "R000_collector", "target": "A01693", "weight": 1}, {"source": "R000_collector", "target": "A01525", "weight": 1}, {"source": "R000_collector", "target": "A01046", "weight": 1}]}, {"ring_id": "004", "typology": "layering", "recall": 0.833, "precision": 0.833, "nodes": [{"id": "R004_hop0"}, {"id": "R004_hop4"}, {"id": "R004_hop3"}, {"id": "R004_hop1"}, {"id": "R004_hop2"}, {"id": "R004_hop5"}], "edges": [{"source": "R004_hop0", "target": "R004_hop1", "weight": 7}, {"source": "R004_hop4", "target": "R004_hop3", "weight": 5}, {"source": "R004_hop4", "target": "R004_hop5", "weight": 2}, {"source": "R004_hop3", "target": "R004_hop2", "weight": 7}, {"source": "R004_hop1", "target": "R004_hop2", "weight": 7}]}, {"ring_id": "008", "typology": "round_trip", "recall": 1.0, "precision": 1.0, "nodes": [{"id": "R008_loop2"}, {"id": "R008_loop1"}, {"id": "R008_loop0"}], "edges": [{"source": "R008_loop2", "target": "R008_loop1", "weight": 9}, {"source": "R008_loop2", "target": "R008_loop0", "weight": 9}, {"source": "R008_loop1", "target": "R008_loop0", "weight": 9}]}, {"ring_id": "001", "typology": "layering", "recall": 0.833, "precision": 0.833, "nodes": [{"id": "R001_hop0"}, {"id": "R001_hop5"}, {"id": "R001_hop1"}, {"id": "R001_hop3"}, {"id": "R001_hop4"}, {"id": "R001_hop2"}], "edges": [{"source": "R001_hop0", "target": "R001_hop1", "weight": 4}, {"source": "R001_hop5", "target": "R001_hop4", "weight": 1}, {"source": "R001_hop1", "target": "R001_hop2", "weight": 4}, {"source": "R001_hop3", "target": "R001_hop2", "weight": 4}, {"source": "R001_hop3", "target": "R001_hop4", "weight": 3}]}, {"ring_id": "005", "typology": "round_trip", "recall": 1.0, "precision": 0.8, "nodes": [{"id": "R005_loop0"}, {"id": "R005_loop1"}, {"id": "R005_loop2"}, {"id": "R005_loop3"}], "edges": [{"source": "R005_loop0", "target": "R005_loop1", "weight": 13}, {"source": "R005_loop0", "target": "R005_loop3", "weight": 11}, {"source": "R005_loop0", "target": "R005_loop2", "weight": 2}, {"source": "R005_loop1", "target": "R005_loop2", "weight": 13}, {"source": "R005_loop2", "target": "R005_loop3", "weight": 11}]}, {"ring_id": "012", "typology": "smurfing", "recall": 0.444, "precision": 0.444, "nodes": [{"id": "R012_smurf3"}, {"id": "A01550"}, {"id": "R012_smurf1"}, {"id": "R012_collector"}, {"id": "A00542"}, {"id": "R012_smurf0"}, {"id": "A00423"}, {"id": "R012_smurf4"}, {"id": "R012_smurf2"}], "edges": [{"source": "R012_smurf3", "target": "R012_collector", "weight": 2}, {"source": "A01550", "target": "R012_collector", "weight": 1}, {"source": "R012_smurf1", "target": "R012_collector", "weight": 3}, {"source": "R012_collector", "target": "R012_smurf2", "weight": 3}, {"source": "R012_collector", "target": "R012_smurf4", "weight": 1}, {"source": "R012_collector", "target": "R012_smurf0", "weight": 3}, {"source": "R012_collector", "target": "A00542", "weight": 1}, {"source": "R012_collector", "target": "A00423", "weight": 1}]}, {"ring_id": "009", "typology": "smurfing", "recall": 0.455, "precision": 0.714, "nodes": [{"id": "R009_smurf5"}, {"id": "R009_collector"}, {"id": "A00100"}, {"id": "A01270"}, {"id": "A01041"}, {"id": "R009_smurf0"}, {"id": "R009_smurf1"}, {"id": "R009_smurf3"}, {"id": "R009_smurf4"}, {"id": "R009_smurf2"}, {"id": "A00429"}], "edges": [{"source": "R009_smurf5", "target": "R009_collector", "weight": 1}, {"source": "R009_collector", "target": "R009_smurf1", "weight": 4}, {"source": "R009_collector", "target": "R009_smurf2", "weight": 4}, {"source": "R009_collector", "target": "R009_smurf3", "weight": 3}, {"source": "R009_collector", "target": "R009_smurf0", "weight": 4}, {"source": "R009_collector", "target": "A01041", "weight": 1}, {"source": "R009_collector", "target": "A00100", "weight": 1}, {"source": "R009_collector", "target": "R009_smurf4", "weight": 1}, {"source": "R009_collector", "target": "A00429", "weight": 1}, {"source": "R009_collector", "target": "A01270", "weight": 1}]}, {"ring_id": "019", "typology": "layering", "recall": 0.833, "precision": 0.833, "nodes": [{"id": "R019_hop5"}, {"id": "R019_hop1"}, {"id": "R019_hop0"}, {"id": "R019_hop2"}, {"id": "R019_hop4"}, {"id": "R019_hop3"}], "edges": [{"source": "R019_hop5", "target": "R019_hop4", "weight": 1}, {"source": "R019_hop1", "target": "R019_hop0", "weight": 4}, {"source": "R019_hop1", "target": "R019_hop2", "weight": 4}, {"source": "R019_hop2", "target": "R019_hop3", "weight": 4}, {"source": "R019_hop4", "target": "R019_hop3", "weight": 3}]}, {"ring_id": "017", "typology": "round_trip", "recall": 1.0, "precision": 1.0, "nodes": [{"id": "R017_loop3"}, {"id": "R017_loop1"}, {"id": "R017_loop2"}, {"id": "R017_loop0"}], "edges": [{"source": "R017_loop3", "target": "R017_loop2", "weight": 14}, {"source": "R017_loop3", "target": "R017_loop0", "weight": 14}, {"source": "R017_loop1", "target": "R017_loop0", "weight": 16}, {"source": "R017_loop1", "target": "R017_loop2", "weight": 16}, {"source": "R017_loop2", "target": "R017_loop0", "weight": 2}]}, {"ring_id": "006", "typology": "smurfing", "recall": 0.5, "precision": 0.75, "nodes": [{"id": "R006_smurf1"}, {"id": "A00290"}, {"id": "R006_smurf4"}, {"id": "R006_smurf0"}, {"id": "R006_smurf2"}, {"id": "A00109"}, {"id": "A00253"}, {"id": "A00684"}, {"id": "R006_smurf5"}, {"id": "R006_collector"}, {"id": "A00331"}, {"id": "R006_smurf3"}], "edges": [{"source": "R006_smurf1", "target": "R006_collector", "weight": 5}, {"source": "A00290", "target": "R006_collector", "weight": 1}, {"source": "R006_smurf4", "target": "R006_collector", "weight": 3}, {"source": "R006_smurf0", "target": "R006_collector", "weight": 5}, {"source": "R006_smurf2", "target": "R006_collector", "weight": 5}, {"source": "A00109", "target": "R006_collector", "weight": 1}, {"source": "A00253", "target": "R006_collector", "weight": 1}, {"source": "A00684", "target": "R006_collector", "weight": 1}, {"source": "R006_smurf5", "target": "R006_collector", "weight": 1}, {"source": "R006_collector", "target": "R006_smurf3", "weight": 5}, {"source": "R006_collector", "target": "A00331", "weight": 1}]}, {"ring_id": "011", "typology": "round_trip", "recall": 1.0, "precision": 0.5, "nodes": [{"id": "R011_loop2"}, {"id": "R011_loop3"}, {"id": "R011_loop0"}, {"id": "R011_loop1"}], "edges": [{"source": "R011_loop2", "target": "R011_loop1", "weight": 11}, {"source": "R011_loop2", "target": "R011_loop0", "weight": 9}, {"source": "R011_loop2", "target": "R011_loop3", "weight": 2}, {"source": "R011_loop3", "target": "R011_loop0", "weight": 2}, {"source": "R011_loop0", "target": "R011_loop1", "weight": 11}]}, {"ring_id": "002", "typology": "round_trip", "recall": 1.0, "precision": 1.0, "nodes": [{"id": "R002_loop1"}, {"id": "R002_loop3"}, {"id": "R002_loop0"}, {"id": "R002_loop2"}], "edges": [{"source": "R002_loop1", "target": "R002_loop0", "weight": 15}, {"source": "R002_loop1", "target": "R002_loop2", "weight": 15}, {"source": "R002_loop3", "target": "R002_loop2", "weight": 5}, {"source": "R002_loop3", "target": "R002_loop0", "weight": 5}, {"source": "R002_loop0", "target": "R002_loop2", "weight": 10}]}, {"ring_id": "014", "typology": "round_trip", "recall": 1.0, "precision": 1.0, "nodes": [{"id": "R014_loop2"}, {"id": "R014_loop3"}, {"id": "R014_loop1"}, {"id": "R014_loop0"}], "edges": [{"source": "R014_loop2", "target": "R014_loop1", "weight": 7}, {"source": "R014_loop2", "target": "R014_loop3", "weight": 5}, {"source": "R014_loop2", "target": "R014_loop0", "weight": 2}, {"source": "R014_loop3", "target": "R014_loop0", "weight": 5}, {"source": "R014_loop1", "target": "R014_loop0", "weight": 7}]}, {"ring_id": "003", "typology": "smurfing", "recall": 0.5, "precision": 0.556, "nodes": [{"id": "A00195"}, {"id": "A00301"}, {"id": "A01497"}, {"id": "R003_smurf4"}, {"id": "R003_smurf0"}, {"id": "R003_smurf1"}, {"id": "A00769"}, {"id": "R003_smurf2"}, {"id": "R003_collector"}, {"id": "R003_smurf3"}], "edges": [{"source": "A00195", "target": "R003_collector", "weight": 1}, {"source": "A00301", "target": "R003_collector", "weight": 1}, {"source": "A01497", "target": "R003_collector", "weight": 1}, {"source": "R003_smurf4", "target": "R003_collector", "weight": 1}, {"source": "R003_smurf0", "target": "R003_collector", "weight": 4}, {"source": "R003_smurf1", "target": "R003_collector", "weight": 4}, {"source": "A00769", "target": "R003_collector", "weight": 1}, {"source": "R003_smurf2", "target": "R003_collector", "weight": 4}, {"source": "R003_collector", "target": "R003_smurf3", "weight": 3}]}, {"ring_id": "018", "typology": "smurfing", "recall": 0.385, "precision": 1.0, "nodes": [{"id": "R018_smurf4"}, {"id": "R018_smurf3"}, {"id": "R018_smurf2"}, {"id": "R018_smurf0"}, {"id": "A00244"}, {"id": "R018_smurf1"}, {"id": "R018_smurf5"}, {"id": "A01753"}, {"id": "A01487"}, {"id": "A00342"}, {"id": "R018_collector"}, {"id": "A00832"}, {"id": "A00903"}], "edges": [{"source": "R018_smurf4", "target": "R018_collector", "weight": 3}, {"source": "R018_smurf3", "target": "R018_collector", "weight": 5}, {"source": "R018_smurf2", "target": "R018_collector", "weight": 6}, {"source": "R018_smurf0", "target": "R018_collector", "weight": 6}, {"source": "A00244", "target": "R018_collector", "weight": 1}, {"source": "R018_smurf1", "target": "R018_collector", "weight": 6}, {"source": "R018_smurf5", "target": "R018_collector", "weight": 2}, {"source": "A01753", "target": "R018_collector", "weight": 1}, {"source": "A01487", "target": "R018_collector", "weight": 1}, {"source": "A00342", "target": "R018_collector", "weight": 1}, {"source": "R018_collector", "target": "A00903", "weight": 1}, {"source": "R018_collector", "target": "A00832", "weight": 1}]}, {"ring_id": "016", "typology": "layering", "recall": 0.833, "precision": 0.714, "nodes": [{"id": "R016_hop2"}, {"id": "R016_hop4"}, {"id": "R016_hop3"}, {"id": "R016_hop5"}, {"id": "R016_hop0"}, {"id": "R016_hop1"}], "edges": [{"source": "R016_hop2", "target": "R016_hop1", "weight": 6}, {"source": "R016_hop2", "target": "R016_hop3", "weight": 6}, {"source": "R016_hop4", "target": "R016_hop3", "weight": 4}, {"source": "R016_hop4", "target": "R016_hop5", "weight": 2}, {"source": "R016_hop0", "target": "R016_hop1", "weight": 6}]}];
+
+// ---- nav ----
+document.querySelectorAll('.mainnav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mainnav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('screen-' + btn.dataset.screen).classList.add('active');
+  });
+});
+
+// ---- stat bar ----
+function statHtml(val, lbl) {
+  return `<div class="stat-item"><div class="stat-val">${val}</div><div class="stat-lbl">${lbl}</div></div>`;
+}
+document.getElementById('statBar').innerHTML =
+  statHtml(METRICS.dataset.total_transactions.toLocaleString(), 'transactions simulated') +
+  statHtml(METRICS.dataset.fraud_rate_pct + '%', 'fraud rate') +
+  statHtml(METRICS.xgboost.precision, 'model precision (XGBoost)') +
+  statHtml(METRICS.xgboost.pr_auc, 'PR-AUC') +
+  statHtml(GRAPH_METRICS.avg_ring_recall, 'ring recall (graph)') +
+  statHtml(GRAPH_METRICS.avg_ring_precision, 'ring precision (graph)');
+
+// ---- alert queue ----
+const tbody = document.getElementById('alertsBody');
+ALERTS.forEach((a, i) => {
+  const tr = document.createElement('tr');
+  const riskClass = a.risk_score >= 0.8 ? 'risk-hi' : 'risk-md';
+  tr.innerHTML = `
+    <td><span class="risk-badge ${riskClass}">${a.risk_score.toFixed(2)}</span></td>
+    <td class="mono">${a.tx_id}</td>
+    <td class="mono">${a.orig}</td>
+    <td class="mono">${a.dest}</td>
+    <td>€${a.amount.toLocaleString()}</td>
+    <td>${a.tx_type}</td>
+    <td>${a.ring_id ? `<span class="ring-badge">${a.typology}</span>` : ''}</td>`;
+  tr.addEventListener('click', () => openDetail(a));
+  tbody.appendChild(tr);
+});
+
+let shapChartInstance = null;
+let detailNetwork = null;
+
+function openDetail(a) {
+  document.getElementById('detailTitle').textContent = `Case: ${a.tx_id}`;
+  document.getElementById('dOrig').textContent = a.orig;
+  document.getElementById('dDest').textContent = a.dest;
+  document.getElementById('dAmount').textContent = '€' + a.amount.toLocaleString();
+  document.getElementById('dType').textContent = a.tx_type;
+  document.getElementById('dScore').textContent = a.risk_score.toFixed(4);
+  document.getElementById('dTruth').textContent = a.is_fraud_ground_truth
+    ? `Known ring (${a.typology})` : 'Not part of an injected ring';
+  document.getElementById('detailPanel').classList.add('open');
+
+  if (shapChartInstance) shapChartInstance.destroy();
+  const ctx = document.getElementById('shapChart').getContext('2d');
+  shapChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: a.top_factors.map(f => f.feature),
+      datasets: [{
+        data: a.top_factors.map(f => f.shap_value),
+        backgroundColor: a.top_factors.map(f => f.shap_value >= 0 ? '#ef4444' : '#3b82f6'),
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: { legend: { display: false }, title: { display: true, text: 'SHAP contribution to risk score', color: '#94a3b8' } },
+      scales: {
+        x: { ticks: { color: '#94a3b8' }, grid: { color: '#2d3150' } },
+        y: { ticks: { color: '#e2e8f0' }, grid: { color: '#2d3150' } }
+      }
+    }
+  });
+
+  const ring = RINGS.find(r => r.ring_id === a.ring_id);
+  const graphDiv = document.getElementById('detailGraph');
+  if (detailNetwork) { detailNetwork.destroy(); detailNetwork = null; }
+  graphDiv.innerHTML = '';
+  if (ring) {
+    detailNetwork = renderRingGraph(graphDiv, ring);
+  } else {
+    graphDiv.innerHTML = '<p style="color:var(--muted);font-size:12px;padding:16px">Not part of a recovered ring.</p>';
+  }
+}
+document.getElementById('closeDetail').addEventListener('click', () => {
+  document.getElementById('detailPanel').classList.remove('open');
+});
+
+function renderRingGraph(container, ring) {
+  const nodes = new vis.DataSet(ring.nodes.map(n => ({
+    id: n.id, label: n.id, color: '#818cf8', font: { color: '#e2e8f0', size: 10 }
+  })));
+  const edges = new vis.DataSet(ring.edges.map(e => ({ from: e.source, to: e.target, width: Math.min(e.weight, 4) })));
+  return new vis.Network(container, { nodes, edges }, {
+    physics: { stabilization: true },
+    edges: { color: '#6366f1', arrows: 'to' },
+    interaction: { hover: true },
+  });
+}
+
+// ---- ring explorer ----
+const ringGrid = document.getElementById('ringGrid');
+RINGS.sort((a, b) => b.recall - a.recall).forEach(ring => {
+  const card = document.createElement('div');
+  card.className = 'ring-card';
+  card.innerHTML = `
+    <div class="ring-card-head">
+      <b>Ring ${ring.ring_id}</b>
+      <span class="typology-pill typology-${ring.typology}">${ring.typology}</span>
+    </div>
+    <div class="ring-graph" id="ringgraph-${ring.ring_id}"></div>
+    <div class="ring-metrics">
+      <span>Recall <b>${ring.recall}</b></span>
+      <span>Precision <b>${ring.precision}</b></span>
+      <span>${ring.nodes.length} accounts</span>
+    </div>`;
+  ringGrid.appendChild(card);
+  renderRingGraph(card.querySelector('.ring-graph'), ring);
+});
+</script>
+</body>
+</html>

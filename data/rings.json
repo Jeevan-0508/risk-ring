@@ -1,37 +1,27 @@
 [
   {
-    "ring_id": 10.0,
+    "ring_id": "010",
     "typology": "layering",
     "recall": 1.0,
     "precision": 0.714,
     "nodes": [
       {
-        "id": "R010_hop0"
+        "id": "R010_hop3"
       },
       {
         "id": "R010_hop1"
       },
       {
-        "id": "R010_hop3"
-      },
-      {
-        "id": "R010_hop4"
+        "id": "R010_hop0"
       },
       {
         "id": "R010_hop2"
+      },
+      {
+        "id": "R010_hop4"
       }
     ],
     "edges": [
-      {
-        "source": "R010_hop0",
-        "target": "R010_hop1",
-        "weight": 5
-      },
-      {
-        "source": "R010_hop1",
-        "target": "R010_hop2",
-        "weight": 5
-      },
       {
         "source": "R010_hop3",
         "target": "R010_hop2",
@@ -41,44 +31,54 @@
         "source": "R010_hop3",
         "target": "R010_hop4",
         "weight": 4
+      },
+      {
+        "source": "R010_hop1",
+        "target": "R010_hop0",
+        "weight": 5
+      },
+      {
+        "source": "R010_hop1",
+        "target": "R010_hop2",
+        "weight": 5
       }
     ]
   },
   {
-    "ring_id": 15.0,
+    "ring_id": "015",
     "typology": "smurfing",
     "recall": 0.545,
     "precision": 0.6,
     "nodes": [
       {
-        "id": "A00886"
+        "id": "R015_collector"
       },
       {
         "id": "A01703"
       },
       {
-        "id": "A00116"
-      },
-      {
-        "id": "A01101"
-      },
-      {
-        "id": "R015_smurf4"
-      },
-      {
-        "id": "R015_collector"
-      },
-      {
-        "id": "A01881"
+        "id": "R015_smurf0"
       },
       {
         "id": "R015_smurf2"
       },
       {
+        "id": "R015_smurf4"
+      },
+      {
+        "id": "A00116"
+      },
+      {
         "id": "R015_smurf1"
       },
       {
-        "id": "R015_smurf0"
+        "id": "A01101"
+      },
+      {
+        "id": "A01881"
+      },
+      {
+        "id": "A00886"
       },
       {
         "id": "R015_smurf3"
@@ -86,28 +86,8 @@
     ],
     "edges": [
       {
-        "source": "A00886",
-        "target": "R015_collector",
-        "weight": 1
-      },
-      {
-        "source": "A01703",
-        "target": "R015_collector",
-        "weight": 1
-      },
-      {
-        "source": "A00116",
-        "target": "R015_collector",
-        "weight": 1
-      },
-      {
-        "source": "A01101",
-        "target": "R015_collector",
-        "weight": 1
-      },
-      {
-        "source": "R015_smurf4",
-        "target": "R015_collector",
+        "source": "R015_collector",
+        "target": "R015_smurf4",
         "weight": 3
       },
       {
@@ -134,51 +114,56 @@
         "source": "R015_collector",
         "target": "A01881",
         "weight": 1
+      },
+      {
+        "source": "R015_collector",
+        "target": "A00116",
+        "weight": 1
+      },
+      {
+        "source": "R015_collector",
+        "target": "A00886",
+        "weight": 1
+      },
+      {
+        "source": "R015_collector",
+        "target": "A01101",
+        "weight": 1
+      },
+      {
+        "source": "R015_collector",
+        "target": "A01703",
+        "weight": 1
       }
     ]
   },
   {
-    "ring_id": 7.0,
+    "ring_id": "007",
     "typology": "layering",
     "recall": 1.0,
     "precision": 0.6,
     "nodes": [
       {
-        "id": "R007_hop4"
-      },
-      {
-        "id": "R007_hop0"
-      },
-      {
         "id": "R007_hop2"
-      },
-      {
-        "id": "R007_hop1"
       },
       {
         "id": "R007_hop3"
       },
       {
+        "id": "R007_hop1"
+      },
+      {
         "id": "R007_hop5"
+      },
+      {
+        "id": "R007_hop4"
+      },
+      {
+        "id": "R007_hop0"
       }
     ],
     "edges": [
       {
-        "source": "R007_hop4",
-        "target": "R007_hop3",
-        "weight": 3
-      },
-      {
-        "source": "R007_hop4",
-        "target": "R007_hop5",
-        "weight": 3
-      },
-      {
-        "source": "R007_hop0",
-        "target": "R007_hop1",
-        "weight": 3
-      },
-      {
         "source": "R007_hop2",
         "target": "R007_hop1",
         "weight": 3
@@ -186,36 +171,61 @@
       {
         "source": "R007_hop2",
         "target": "R007_hop3",
+        "weight": 3
+      },
+      {
+        "source": "R007_hop3",
+        "target": "R007_hop4",
+        "weight": 3
+      },
+      {
+        "source": "R007_hop1",
+        "target": "R007_hop0",
+        "weight": 3
+      },
+      {
+        "source": "R007_hop5",
+        "target": "R007_hop4",
         "weight": 3
       }
     ]
   },
   {
-    "ring_id": 13.0,
+    "ring_id": "013",
     "typology": "layering",
     "recall": 0.833,
     "precision": 0.714,
     "nodes": [
       {
-        "id": "R013_hop1"
+        "id": "R013_hop5"
       },
       {
         "id": "R013_hop4"
       },
       {
-        "id": "R013_hop0"
+        "id": "R013_hop1"
       },
       {
-        "id": "R013_hop3"
+        "id": "R013_hop0"
       },
       {
         "id": "R013_hop2"
       },
       {
-        "id": "R013_hop5"
+        "id": "R013_hop3"
       }
     ],
     "edges": [
+      {
+        "source": "R013_hop5",
+        "target": "R013_hop4",
+        "weight": 1
+      },
+      {
+        "source": "R013_hop4",
+        "target": "R013_hop3",
+        "weight": 4
+      },
       {
         "source": "R013_hop1",
         "target": "R013_hop0",
@@ -227,76 +237,91 @@
         "weight": 6
       },
       {
-        "source": "R013_hop4",
+        "source": "R013_hop2",
         "target": "R013_hop3",
-        "weight": 4
-      },
-      {
-        "source": "R013_hop4",
-        "target": "R013_hop5",
-        "weight": 1
-      },
-      {
-        "source": "R013_hop3",
-        "target": "R013_hop2",
         "weight": 6
       }
     ]
   },
   {
-    "ring_id": 0.0,
+    "ring_id": "000",
     "typology": "smurfing",
     "recall": 0.429,
     "precision": 0.667,
     "nodes": [
       {
-        "id": "R000_collector"
-      },
-      {
-        "id": "R000_smurf2"
-      },
-      {
-        "id": "A01693"
-      },
-      {
-        "id": "A00764"
-      },
-      {
-        "id": "R000_smurf3"
-      },
-      {
-        "id": "R000_smurf1"
+        "id": "A01559"
       },
       {
         "id": "R000_smurf4"
       },
       {
+        "id": "R000_smurf5"
+      },
+      {
+        "id": "R000_smurf3"
+      },
+      {
+        "id": "R000_smurf2"
+      },
+      {
+        "id": "A00764"
+      },
+      {
+        "id": "R000_collector"
+      },
+      {
         "id": "A01913"
-      },
-      {
-        "id": "A01559"
-      },
-      {
-        "id": "R000_smurf0"
       },
       {
         "id": "A01046"
       },
       {
+        "id": "A01293"
+      },
+      {
+        "id": "A01693"
+      },
+      {
+        "id": "R000_smurf1"
+      },
+      {
         "id": "A01525"
       },
       {
-        "id": "R000_smurf5"
-      },
-      {
-        "id": "A01293"
+        "id": "R000_smurf0"
       }
     ],
     "edges": [
       {
-        "source": "R000_collector",
-        "target": "R000_smurf2",
+        "source": "A01559",
+        "target": "R000_collector",
+        "weight": 1
+      },
+      {
+        "source": "R000_smurf4",
+        "target": "R000_collector",
+        "weight": 4
+      },
+      {
+        "source": "R000_smurf5",
+        "target": "R000_collector",
+        "weight": 2
+      },
+      {
+        "source": "R000_smurf3",
+        "target": "R000_collector",
+        "weight": 5
+      },
+      {
+        "source": "R000_smurf2",
+        "target": "R000_collector",
         "weight": 7
+      },
+      {
+        "source": "A00764",
+        "target": "R000_collector",
+        "weight": 1
       },
       {
         "source": "R000_collector",
@@ -315,32 +340,7 @@
       },
       {
         "source": "R000_collector",
-        "target": "R000_smurf3",
-        "weight": 5
-      },
-      {
-        "source": "R000_collector",
         "target": "A01293",
-        "weight": 1
-      },
-      {
-        "source": "R000_collector",
-        "target": "A00764",
-        "weight": 1
-      },
-      {
-        "source": "R000_collector",
-        "target": "R000_smurf4",
-        "weight": 4
-      },
-      {
-        "source": "R000_collector",
-        "target": "R000_smurf5",
-        "weight": 2
-      },
-      {
-        "source": "R000_collector",
-        "target": "A01559",
         "weight": 1
       },
       {
@@ -361,7 +361,7 @@
     ]
   },
   {
-    "ring_id": 4.0,
+    "ring_id": "004",
     "typology": "layering",
     "recall": 0.833,
     "precision": 0.833,
@@ -370,7 +370,10 @@
         "id": "R004_hop0"
       },
       {
-        "id": "R004_hop5"
+        "id": "R004_hop4"
+      },
+      {
+        "id": "R004_hop3"
       },
       {
         "id": "R004_hop1"
@@ -379,10 +382,7 @@
         "id": "R004_hop2"
       },
       {
-        "id": "R004_hop4"
-      },
-      {
-        "id": "R004_hop3"
+        "id": "R004_hop5"
       }
     ],
     "edges": [
@@ -392,100 +392,90 @@
         "weight": 7
       },
       {
-        "source": "R004_hop5",
-        "target": "R004_hop4",
+        "source": "R004_hop4",
+        "target": "R004_hop3",
+        "weight": 5
+      },
+      {
+        "source": "R004_hop4",
+        "target": "R004_hop5",
         "weight": 2
+      },
+      {
+        "source": "R004_hop3",
+        "target": "R004_hop2",
+        "weight": 7
       },
       {
         "source": "R004_hop1",
         "target": "R004_hop2",
         "weight": 7
-      },
-      {
-        "source": "R004_hop2",
-        "target": "R004_hop3",
-        "weight": 7
-      },
-      {
-        "source": "R004_hop4",
-        "target": "R004_hop3",
-        "weight": 5
       }
     ]
   },
   {
-    "ring_id": 8.0,
+    "ring_id": "008",
     "typology": "round_trip",
     "recall": 1.0,
     "precision": 1.0,
     "nodes": [
       {
-        "id": "R008_loop0"
-      },
-      {
         "id": "R008_loop2"
       },
       {
         "id": "R008_loop1"
+      },
+      {
+        "id": "R008_loop0"
       }
     ],
     "edges": [
       {
-        "source": "R008_loop0",
+        "source": "R008_loop2",
         "target": "R008_loop1",
-        "weight": 9
-      },
-      {
-        "source": "R008_loop0",
-        "target": "R008_loop2",
         "weight": 9
       },
       {
         "source": "R008_loop2",
-        "target": "R008_loop1",
+        "target": "R008_loop0",
+        "weight": 9
+      },
+      {
+        "source": "R008_loop1",
+        "target": "R008_loop0",
         "weight": 9
       }
     ]
   },
   {
-    "ring_id": 1.0,
+    "ring_id": "001",
     "typology": "layering",
     "recall": 0.833,
     "precision": 0.833,
     "nodes": [
       {
-        "id": "R001_hop2"
-      },
-      {
-        "id": "R001_hop1"
+        "id": "R001_hop0"
       },
       {
         "id": "R001_hop5"
       },
       {
-        "id": "R001_hop0"
+        "id": "R001_hop1"
+      },
+      {
+        "id": "R001_hop3"
       },
       {
         "id": "R001_hop4"
       },
       {
-        "id": "R001_hop3"
+        "id": "R001_hop2"
       }
     ],
     "edges": [
       {
-        "source": "R001_hop2",
+        "source": "R001_hop0",
         "target": "R001_hop1",
-        "weight": 4
-      },
-      {
-        "source": "R001_hop2",
-        "target": "R001_hop3",
-        "weight": 4
-      },
-      {
-        "source": "R001_hop1",
-        "target": "R001_hop0",
         "weight": 4
       },
       {
@@ -494,18 +484,31 @@
         "weight": 1
       },
       {
-        "source": "R001_hop4",
-        "target": "R001_hop3",
+        "source": "R001_hop1",
+        "target": "R001_hop2",
+        "weight": 4
+      },
+      {
+        "source": "R001_hop3",
+        "target": "R001_hop2",
+        "weight": 4
+      },
+      {
+        "source": "R001_hop3",
+        "target": "R001_hop4",
         "weight": 3
       }
     ]
   },
   {
-    "ring_id": 5.0,
+    "ring_id": "005",
     "typology": "round_trip",
     "recall": 1.0,
     "precision": 0.8,
     "nodes": [
+      {
+        "id": "R005_loop0"
+      },
       {
         "id": "R005_loop1"
       },
@@ -513,17 +516,24 @@
         "id": "R005_loop2"
       },
       {
-        "id": "R005_loop0"
-      },
-      {
         "id": "R005_loop3"
       }
     ],
     "edges": [
       {
-        "source": "R005_loop1",
-        "target": "R005_loop0",
+        "source": "R005_loop0",
+        "target": "R005_loop1",
         "weight": 13
+      },
+      {
+        "source": "R005_loop0",
+        "target": "R005_loop3",
+        "weight": 11
+      },
+      {
+        "source": "R005_loop0",
+        "target": "R005_loop2",
+        "weight": 2
       },
       {
         "source": "R005_loop1",
@@ -534,83 +544,58 @@
         "source": "R005_loop2",
         "target": "R005_loop3",
         "weight": 11
-      },
-      {
-        "source": "R005_loop2",
-        "target": "R005_loop0",
-        "weight": 2
-      },
-      {
-        "source": "R005_loop0",
-        "target": "R005_loop3",
-        "weight": 11
       }
     ]
   },
   {
-    "ring_id": 12.0,
+    "ring_id": "012",
     "typology": "smurfing",
     "recall": 0.444,
     "precision": 0.444,
     "nodes": [
       {
-        "id": "R012_smurf1"
-      },
-      {
-        "id": "R012_smurf4"
-      },
-      {
-        "id": "A00423"
-      },
-      {
-        "id": "R012_smurf0"
-      },
-      {
-        "id": "A00542"
-      },
-      {
-        "id": "R012_collector"
+        "id": "R012_smurf3"
       },
       {
         "id": "A01550"
       },
       {
-        "id": "R012_smurf2"
+        "id": "R012_smurf1"
       },
       {
-        "id": "R012_smurf3"
+        "id": "R012_collector"
+      },
+      {
+        "id": "A00542"
+      },
+      {
+        "id": "R012_smurf0"
+      },
+      {
+        "id": "A00423"
+      },
+      {
+        "id": "R012_smurf4"
+      },
+      {
+        "id": "R012_smurf2"
       }
     ],
     "edges": [
       {
+        "source": "R012_smurf3",
+        "target": "R012_collector",
+        "weight": 2
+      },
+      {
+        "source": "A01550",
+        "target": "R012_collector",
+        "weight": 1
+      },
+      {
         "source": "R012_smurf1",
         "target": "R012_collector",
         "weight": 3
-      },
-      {
-        "source": "R012_smurf4",
-        "target": "R012_collector",
-        "weight": 1
-      },
-      {
-        "source": "A00423",
-        "target": "R012_collector",
-        "weight": 1
-      },
-      {
-        "source": "R012_smurf0",
-        "target": "R012_collector",
-        "weight": 3
-      },
-      {
-        "source": "A00542",
-        "target": "R012_collector",
-        "weight": 1
-      },
-      {
-        "source": "R012_collector",
-        "target": "R012_smurf3",
-        "weight": 2
       },
       {
         "source": "R012_collector",
@@ -619,54 +604,69 @@
       },
       {
         "source": "R012_collector",
-        "target": "A01550",
+        "target": "R012_smurf4",
+        "weight": 1
+      },
+      {
+        "source": "R012_collector",
+        "target": "R012_smurf0",
+        "weight": 3
+      },
+      {
+        "source": "R012_collector",
+        "target": "A00542",
+        "weight": 1
+      },
+      {
+        "source": "R012_collector",
+        "target": "A00423",
         "weight": 1
       }
     ]
   },
   {
-    "ring_id": 9.0,
+    "ring_id": "009",
     "typology": "smurfing",
     "recall": 0.455,
     "precision": 0.714,
     "nodes": [
       {
-        "id": "A01270"
+        "id": "R009_smurf5"
       },
       {
         "id": "R009_collector"
       },
       {
-        "id": "R009_smurf1"
+        "id": "A00100"
       },
       {
-        "id": "R009_smurf5"
-      },
-      {
-        "id": "A00429"
-      },
-      {
-        "id": "R009_smurf0"
+        "id": "A01270"
       },
       {
         "id": "A01041"
       },
       {
+        "id": "R009_smurf0"
+      },
+      {
+        "id": "R009_smurf1"
+      },
+      {
         "id": "R009_smurf3"
       },
       {
-        "id": "A00100"
+        "id": "R009_smurf4"
       },
       {
         "id": "R009_smurf2"
       },
       {
-        "id": "R009_smurf4"
+        "id": "A00429"
       }
     ],
     "edges": [
       {
-        "source": "A01270",
+        "source": "R009_smurf5",
         "target": "R009_collector",
         "weight": 1
       },
@@ -702,11 +702,6 @@
       },
       {
         "source": "R009_collector",
-        "target": "R009_smurf5",
-        "weight": 1
-      },
-      {
-        "source": "R009_collector",
         "target": "R009_smurf4",
         "weight": 1
       },
@@ -714,20 +709,28 @@
         "source": "R009_collector",
         "target": "A00429",
         "weight": 1
+      },
+      {
+        "source": "R009_collector",
+        "target": "A01270",
+        "weight": 1
       }
     ]
   },
   {
-    "ring_id": 19.0,
+    "ring_id": "019",
     "typology": "layering",
     "recall": 0.833,
     "precision": 0.833,
     "nodes": [
       {
-        "id": "R019_hop3"
+        "id": "R019_hop5"
       },
       {
-        "id": "R019_hop5"
+        "id": "R019_hop1"
+      },
+      {
+        "id": "R019_hop0"
       },
       {
         "id": "R019_hop2"
@@ -736,98 +739,101 @@
         "id": "R019_hop4"
       },
       {
-        "id": "R019_hop0"
-      },
-      {
-        "id": "R019_hop1"
+        "id": "R019_hop3"
       }
     ],
     "edges": [
-      {
-        "source": "R019_hop3",
-        "target": "R019_hop2",
-        "weight": 4
-      },
-      {
-        "source": "R019_hop3",
-        "target": "R019_hop4",
-        "weight": 3
-      },
       {
         "source": "R019_hop5",
         "target": "R019_hop4",
         "weight": 1
       },
       {
-        "source": "R019_hop2",
-        "target": "R019_hop1",
+        "source": "R019_hop1",
+        "target": "R019_hop0",
         "weight": 4
       },
       {
-        "source": "R019_hop0",
-        "target": "R019_hop1",
+        "source": "R019_hop1",
+        "target": "R019_hop2",
         "weight": 4
+      },
+      {
+        "source": "R019_hop2",
+        "target": "R019_hop3",
+        "weight": 4
+      },
+      {
+        "source": "R019_hop4",
+        "target": "R019_hop3",
+        "weight": 3
       }
     ]
   },
   {
-    "ring_id": 17.0,
+    "ring_id": "017",
     "typology": "round_trip",
     "recall": 1.0,
     "precision": 1.0,
     "nodes": [
       {
-        "id": "R017_loop0"
+        "id": "R017_loop3"
+      },
+      {
+        "id": "R017_loop1"
       },
       {
         "id": "R017_loop2"
       },
       {
-        "id": "R017_loop3"
-      },
-      {
-        "id": "R017_loop1"
+        "id": "R017_loop0"
       }
     ],
     "edges": [
       {
-        "source": "R017_loop0",
-        "target": "R017_loop1",
-        "weight": 16
-      },
-      {
-        "source": "R017_loop0",
-        "target": "R017_loop3",
-        "weight": 14
-      },
-      {
-        "source": "R017_loop0",
+        "source": "R017_loop3",
         "target": "R017_loop2",
-        "weight": 2
+        "weight": 14
       },
       {
-        "source": "R017_loop2",
-        "target": "R017_loop1",
+        "source": "R017_loop3",
+        "target": "R017_loop0",
+        "weight": 14
+      },
+      {
+        "source": "R017_loop1",
+        "target": "R017_loop0",
+        "weight": 16
+      },
+      {
+        "source": "R017_loop1",
+        "target": "R017_loop2",
         "weight": 16
       },
       {
         "source": "R017_loop2",
-        "target": "R017_loop3",
-        "weight": 14
+        "target": "R017_loop0",
+        "weight": 2
       }
     ]
   },
   {
-    "ring_id": 6.0,
+    "ring_id": "006",
     "typology": "smurfing",
     "recall": 0.5,
     "precision": 0.75,
     "nodes": [
       {
-        "id": "A00331"
+        "id": "R006_smurf1"
       },
       {
         "id": "A00290"
+      },
+      {
+        "id": "R006_smurf4"
+      },
+      {
+        "id": "R006_smurf0"
       },
       {
         "id": "R006_smurf2"
@@ -836,40 +842,44 @@
         "id": "A00109"
       },
       {
-        "id": "R006_smurf4"
-      },
-      {
-        "id": "R006_smurf3"
-      },
-      {
-        "id": "R006_smurf1"
-      },
-      {
-        "id": "R006_smurf0"
-      },
-      {
         "id": "A00253"
-      },
-      {
-        "id": "R006_collector"
       },
       {
         "id": "A00684"
       },
       {
         "id": "R006_smurf5"
+      },
+      {
+        "id": "R006_collector"
+      },
+      {
+        "id": "A00331"
+      },
+      {
+        "id": "R006_smurf3"
       }
     ],
     "edges": [
       {
-        "source": "A00331",
+        "source": "R006_smurf1",
         "target": "R006_collector",
-        "weight": 1
+        "weight": 5
       },
       {
         "source": "A00290",
         "target": "R006_collector",
         "weight": 1
+      },
+      {
+        "source": "R006_smurf4",
+        "target": "R006_collector",
+        "weight": 3
+      },
+      {
+        "source": "R006_smurf0",
+        "target": "R006_collector",
+        "weight": 5
       },
       {
         "source": "R006_smurf2",
@@ -882,51 +892,38 @@
         "weight": 1
       },
       {
-        "source": "R006_smurf4",
-        "target": "R006_collector",
-        "weight": 3
-      },
-      {
-        "source": "R006_smurf3",
-        "target": "R006_collector",
-        "weight": 5
-      },
-      {
-        "source": "R006_smurf1",
-        "target": "R006_collector",
-        "weight": 5
-      },
-      {
-        "source": "R006_smurf0",
-        "target": "R006_collector",
-        "weight": 5
-      },
-      {
         "source": "A00253",
         "target": "R006_collector",
         "weight": 1
       },
       {
-        "source": "R006_collector",
-        "target": "R006_smurf5",
+        "source": "A00684",
+        "target": "R006_collector",
+        "weight": 1
+      },
+      {
+        "source": "R006_smurf5",
+        "target": "R006_collector",
         "weight": 1
       },
       {
         "source": "R006_collector",
-        "target": "A00684",
+        "target": "R006_smurf3",
+        "weight": 5
+      },
+      {
+        "source": "R006_collector",
+        "target": "A00331",
         "weight": 1
       }
     ]
   },
   {
-    "ring_id": 11.0,
+    "ring_id": "011",
     "typology": "round_trip",
     "recall": 1.0,
     "precision": 0.5,
     "nodes": [
-      {
-        "id": "R011_loop1"
-      },
       {
         "id": "R011_loop2"
       },
@@ -935,17 +932,15 @@
       },
       {
         "id": "R011_loop0"
+      },
+      {
+        "id": "R011_loop1"
       }
     ],
     "edges": [
       {
-        "source": "R011_loop1",
-        "target": "R011_loop0",
-        "weight": 11
-      },
-      {
-        "source": "R011_loop1",
-        "target": "R011_loop2",
+        "source": "R011_loop2",
+        "target": "R011_loop1",
         "weight": 11
       },
       {
@@ -962,15 +957,23 @@
         "source": "R011_loop3",
         "target": "R011_loop0",
         "weight": 2
+      },
+      {
+        "source": "R011_loop0",
+        "target": "R011_loop1",
+        "weight": 11
       }
     ]
   },
   {
-    "ring_id": 2.0,
+    "ring_id": "002",
     "typology": "round_trip",
     "recall": 1.0,
     "precision": 1.0,
     "nodes": [
+      {
+        "id": "R002_loop1"
+      },
       {
         "id": "R002_loop3"
       },
@@ -979,12 +982,19 @@
       },
       {
         "id": "R002_loop2"
-      },
-      {
-        "id": "R002_loop1"
       }
     ],
     "edges": [
+      {
+        "source": "R002_loop1",
+        "target": "R002_loop0",
+        "weight": 15
+      },
+      {
+        "source": "R002_loop1",
+        "target": "R002_loop2",
+        "weight": 15
+      },
       {
         "source": "R002_loop3",
         "target": "R002_loop2",
@@ -997,49 +1007,34 @@
       },
       {
         "source": "R002_loop0",
-        "target": "R002_loop1",
-        "weight": 15
-      },
-      {
-        "source": "R002_loop0",
         "target": "R002_loop2",
         "weight": 10
-      },
-      {
-        "source": "R002_loop2",
-        "target": "R002_loop1",
-        "weight": 15
       }
     ]
   },
   {
-    "ring_id": 14.0,
+    "ring_id": "014",
     "typology": "round_trip",
     "recall": 1.0,
     "precision": 1.0,
     "nodes": [
       {
-        "id": "R014_loop1"
-      },
-      {
         "id": "R014_loop2"
       },
       {
-        "id": "R014_loop0"
+        "id": "R014_loop3"
       },
       {
-        "id": "R014_loop3"
+        "id": "R014_loop1"
+      },
+      {
+        "id": "R014_loop0"
       }
     ],
     "edges": [
       {
-        "source": "R014_loop1",
-        "target": "R014_loop0",
-        "weight": 7
-      },
-      {
-        "source": "R014_loop1",
-        "target": "R014_loop2",
+        "source": "R014_loop2",
+        "target": "R014_loop1",
         "weight": 7
       },
       {
@@ -1053,14 +1048,19 @@
         "weight": 2
       },
       {
-        "source": "R014_loop0",
-        "target": "R014_loop3",
+        "source": "R014_loop3",
+        "target": "R014_loop0",
         "weight": 5
+      },
+      {
+        "source": "R014_loop1",
+        "target": "R014_loop0",
+        "weight": 7
       }
     ]
   },
   {
-    "ring_id": 3.0,
+    "ring_id": "003",
     "typology": "smurfing",
     "recall": 0.5,
     "precision": 0.556,
@@ -1069,22 +1069,19 @@
         "id": "A00195"
       },
       {
+        "id": "A00301"
+      },
+      {
         "id": "A01497"
-      },
-      {
-        "id": "R003_smurf0"
-      },
-      {
-        "id": "R003_smurf3"
       },
       {
         "id": "R003_smurf4"
       },
       {
-        "id": "R003_smurf1"
+        "id": "R003_smurf0"
       },
       {
-        "id": "R003_collector"
+        "id": "R003_smurf1"
       },
       {
         "id": "A00769"
@@ -1093,7 +1090,10 @@
         "id": "R003_smurf2"
       },
       {
-        "id": "A00301"
+        "id": "R003_collector"
+      },
+      {
+        "id": "R003_smurf3"
       }
     ],
     "edges": [
@@ -1103,7 +1103,17 @@
         "weight": 1
       },
       {
+        "source": "A00301",
+        "target": "R003_collector",
+        "weight": 1
+      },
+      {
         "source": "A01497",
+        "target": "R003_collector",
+        "weight": 1
+      },
+      {
+        "source": "R003_smurf4",
         "target": "R003_collector",
         "weight": 1
       },
@@ -1113,88 +1123,78 @@
         "weight": 4
       },
       {
-        "source": "R003_smurf3",
-        "target": "R003_collector",
-        "weight": 3
-      },
-      {
-        "source": "R003_smurf4",
-        "target": "R003_collector",
-        "weight": 1
-      },
-      {
         "source": "R003_smurf1",
         "target": "R003_collector",
         "weight": 4
       },
       {
-        "source": "R003_collector",
-        "target": "R003_smurf2",
+        "source": "A00769",
+        "target": "R003_collector",
+        "weight": 1
+      },
+      {
+        "source": "R003_smurf2",
+        "target": "R003_collector",
         "weight": 4
       },
       {
         "source": "R003_collector",
-        "target": "A00769",
-        "weight": 1
-      },
-      {
-        "source": "R003_collector",
-        "target": "A00301",
-        "weight": 1
+        "target": "R003_smurf3",
+        "weight": 3
       }
     ]
   },
   {
-    "ring_id": 18.0,
+    "ring_id": "018",
     "typology": "smurfing",
     "recall": 0.385,
     "precision": 1.0,
     "nodes": [
       {
-        "id": "A00342"
+        "id": "R018_smurf4"
       },
       {
         "id": "R018_smurf3"
       },
       {
-        "id": "A01487"
+        "id": "R018_smurf2"
       },
       {
-        "id": "R018_smurf1"
-      },
-      {
-        "id": "A00832"
+        "id": "R018_smurf0"
       },
       {
         "id": "A00244"
       },
       {
-        "id": "R018_collector"
-      },
-      {
-        "id": "A00903"
-      },
-      {
-        "id": "R018_smurf4"
+        "id": "R018_smurf1"
       },
       {
         "id": "R018_smurf5"
       },
       {
-        "id": "R018_smurf2"
-      },
-      {
         "id": "A01753"
       },
       {
-        "id": "R018_smurf0"
+        "id": "A01487"
+      },
+      {
+        "id": "A00342"
+      },
+      {
+        "id": "R018_collector"
+      },
+      {
+        "id": "A00832"
+      },
+      {
+        "id": "A00903"
       }
     ],
     "edges": [
       {
-        "source": "A00342",
+        "source": "R018_smurf4",
         "target": "R018_collector",
-        "weight": 1
+        "weight": 3
       },
       {
         "source": "R018_smurf3",
@@ -1202,7 +1202,17 @@
         "weight": 5
       },
       {
-        "source": "A01487",
+        "source": "R018_smurf2",
+        "target": "R018_collector",
+        "weight": 6
+      },
+      {
+        "source": "R018_smurf0",
+        "target": "R018_collector",
+        "weight": 6
+      },
+      {
+        "source": "A00244",
         "target": "R018_collector",
         "weight": 1
       },
@@ -1212,34 +1222,24 @@
         "weight": 6
       },
       {
-        "source": "A00832",
+        "source": "R018_smurf5",
         "target": "R018_collector",
-        "weight": 1
-      },
-      {
-        "source": "A00244",
-        "target": "R018_collector",
-        "weight": 1
-      },
-      {
-        "source": "R018_collector",
-        "target": "R018_smurf2",
-        "weight": 6
-      },
-      {
-        "source": "R018_collector",
-        "target": "R018_smurf0",
-        "weight": 6
-      },
-      {
-        "source": "R018_collector",
-        "target": "R018_smurf5",
         "weight": 2
       },
       {
-        "source": "R018_collector",
-        "target": "R018_smurf4",
-        "weight": 3
+        "source": "A01753",
+        "target": "R018_collector",
+        "weight": 1
+      },
+      {
+        "source": "A01487",
+        "target": "R018_collector",
+        "weight": 1
+      },
+      {
+        "source": "A00342",
+        "target": "R018_collector",
+        "weight": 1
       },
       {
         "source": "R018_collector",
@@ -1248,13 +1248,13 @@
       },
       {
         "source": "R018_collector",
-        "target": "A01753",
+        "target": "A00832",
         "weight": 1
       }
     ]
   },
   {
-    "ring_id": 16.0,
+    "ring_id": "016",
     "typology": "layering",
     "recall": 0.833,
     "precision": 0.714,
@@ -1263,19 +1263,19 @@
         "id": "R016_hop2"
       },
       {
-        "id": "R016_hop0"
-      },
-      {
-        "id": "R016_hop1"
-      },
-      {
         "id": "R016_hop4"
+      },
+      {
+        "id": "R016_hop3"
       },
       {
         "id": "R016_hop5"
       },
       {
-        "id": "R016_hop3"
+        "id": "R016_hop0"
+      },
+      {
+        "id": "R016_hop1"
       }
     ],
     "edges": [
@@ -1287,11 +1287,6 @@
       {
         "source": "R016_hop2",
         "target": "R016_hop3",
-        "weight": 6
-      },
-      {
-        "source": "R016_hop0",
-        "target": "R016_hop1",
         "weight": 6
       },
       {
@@ -1303,6 +1298,11 @@
         "source": "R016_hop4",
         "target": "R016_hop5",
         "weight": 2
+      },
+      {
+        "source": "R016_hop0",
+        "target": "R016_hop1",
+        "weight": 6
       }
     ]
   }

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RISK//RING — Financial Crime Network Intelligence</title>
+<meta name="description" content="A trained fraud classifier with honest metrics, SHAP explainability, and graph-based collusion-ring detection, evaluated against known ground truth.">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.9/standalone/umd/vis-network.min.js"></script>
+<style>
+:root{
+  --bg:#0f1117;--surface:#1a1d27;--surface2:#22263a;--surface3:#2a2f4a;
+  --accent:#6366f1;--accent2:#818cf8;--accent3:#4f46e5;--accent4:#c7d2fe;
+  --text:#e2e8f0;--muted:#94a3b8;--border:#2d3150;
+  --danger:#ef4444;--warning:#f59e0b;--success:#22c55e;--info:#3b82f6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;min-height:100vh;display:flex;flex-direction:column}
+::selection{background:rgba(99,102,241,.35);color:#fff}
+
+header{background:rgba(15,17,23,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:200;height:60px}
+.logo-wrap{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo{width:36px;height:36px;background:linear-gradient(135deg,#4f46e5,#818cf8);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.logo-text{font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.logo-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.header-actions{margin-left:auto;display:flex;align-items:center;gap:12px}
+.gh-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:7px;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-size:12px;font-weight:600;text-decoration:none}
+.gh-btn:hover{border-color:var(--accent);color:var(--accent2)}
+.synthetic-pill{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.4);color:#86efac;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px}
+
+.mainnav{background:var(--surface);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:2px;position:sticky;top:60px;z-index:190;overflow-x:auto}
+.mainnav-btn{padding:14px 18px;font-size:13px;font-weight:600;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;font-family:inherit}
+.mainnav-btn.active{color:var(--accent2);border-bottom-color:var(--accent)}
+.mainnav-btn:hover:not(.active){color:var(--text)}
+
+.stat-bar{display:flex;justify-content:center;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--surface)}
+.stat-item{flex:1;min-width:150px;max-width:220px;text-align:center;padding:18px 12px;border-right:1px solid var(--border)}
+.stat-item:last-child{border-right:none}
+.stat-val{font-size:24px;font-weight:800;color:var(--accent2);line-height:1}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:6px;line-height:1.4}
+
+main{flex:1;max-width:1200px;margin:0 auto;width:100%;padding:32px 24px 80px}
+.screen{display:none}
+.screen.active{display:block}
+h2.screen-title{font-size:22px;font-weight:800;margin-bottom:6px;letter-spacing:-.3px}
+p.screen-sub{color:var(--muted);font-size:14px;margin-bottom:24px;max-width:700px}
+
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+thead th{background:var(--surface2);text-align:left;padding:10px 14px;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border)}
+tbody td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--border)}
+tbody tr{cursor:pointer;transition:background .15s}
+tbody tr:hover{background:var(--surface2)}
+tbody tr:last-child td{border-bottom:none}
+.mono{font-family:"SF Mono",Consolas,monospace;font-size:12px;color:var(--muted)}
+.risk-badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.risk-hi{background:rgba(239,68,68,.15);color:#fca5a5;border:1px solid rgba(239,68,68,.4)}
+.risk-md{background:rgba(245,158,11,.15);color:#fcd34d;border:1px solid rgba(245,158,11,.4)}
+.ring-badge{background:rgba(99,102,241,.15);color:var(--accent4);border:1px solid rgba(99,102,241,.4);padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600}
+
+.detail-panel{margin-top:20px;background:var(--surface);border:1px solid var(--accent);border-radius:12px;padding:24px;display:none}
+.detail-panel.open{display:block}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:800px){.detail-grid{grid-template-columns:1fr}}
+.detail-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.detail-head h3{font-size:16px;font-weight:700}
+.close-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px}
+.chart-wrap{height:220px}
+.graph-wrap{height:260px;border:1px solid var(--border);border-radius:8px;background:var(--surface2)}
+.field-row{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid var(--border)}
+.field-row span:first-child{color:var(--muted)}
+
+.ring-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.ring-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
+.ring-card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.ring-card-head b{font-size:13px}
+.typology-pill{font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px}
+.typology-smurfing{background:rgba(245,158,11,.15);color:#fcd34d}
+.typology-layering{background:rgba(239,68,68,.15);color:#fca5a5}
+.typology-round_trip{background:rgba(59,130,246,.15);color:#93c5fd}
+.ring-graph{height:180px;border-radius:8px;background:var(--surface2);border:1px solid var(--border)}
+.ring-metrics{display:flex;gap:12px;margin-top:10px;font-size:12px;color:var(--muted)}
+.ring-metrics b{color:var(--text)}
+
+.method-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;max-width:800px;line-height:1.8;font-size:14px}
+.method-box h3{font-size:15px;margin:20px 0 8px;color:var(--accent2)}
+.method-box h3:first-child{margin-top:0}
+.method-box code{background:var(--surface2);padding:2px 6px;border-radius:4px;font-size:12px}
+.method-box ul{padding-left:20px;margin:8px 0}
+
+footer{border-top:1px solid var(--border);padding:24px;text-align:center;font-size:12px;color:var(--muted)}
+footer a{color:var(--accent2);text-decoration:none}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo-wrap" href="#">
+    <div class="logo">🕸️</div>
+    <div>
+      <div class="logo-text">RISK//RING</div>
+      <div class="logo-sub">Financial crime network intelligence</div>
+    </div>
+  </a>
+  <div class="header-actions">
+    <span class="synthetic-pill">● synthetic data, nothing real</span>
+    <a class="gh-btn" href="https://github.com/Jeevan-0508/risk-ring" target="_blank">GitHub ↗</a>
+  </div>
+</header>
+
+<nav class="mainnav">
+  <button class="mainnav-btn active" data-screen="alerts">Alert Queue</button>
+  <button class="mainnav-btn" data-screen="rings">Ring Explorer</button>
+  <button class="mainnav-btn" data-screen="methodology">Methodology</button>
+</nav>
+
+<div class="stat-bar" id="statBar"></div>
+
+<main>
+  <section class="screen active" id="screen-alerts">
+    <h2 class="screen-title">Alert Queue</h2>
+    <p class="screen-sub">Top-scored transactions from the held-out test set, ranked by the XGBoost classifier. Click a row to see why it was flagged.</p>
+    <table>
+      <thead><tr><th>Risk</th><th>TX ID</th><th>Orig</th><th>Dest</th><th>Amount</th><th>Type</th><th>Ring</th></tr></thead>
+      <tbody id="alertsBody"></tbody>
+    </table>
+    <div class="detail-panel" id="detailPanel">
+      <div class="detail-head"><h3 id="detailTitle"></h3><button class="close-btn" id="closeDetail">Close ✕</button></div>
+      <div class="detail-grid">
+        <div>
+          <div class="field-row"><span>Origin</span><span id="dOrig" class="mono"></span></div>
+          <div class="field-row"><span>Destination</span><span id="dDest" class="mono"></span></div>
+          <div class="field-row"><span>Amount</span><span id="dAmount"></span></div>
+          <div class="field-row"><span>Type</span><span id="dType"></span></div>
+          <div class="field-row"><span>Risk score</span><span id="dScore"></span></div>
+          <div class="field-row"><span>Ground truth</span><span id="dTruth"></span></div>
+          <div class="chart-wrap"><canvas id="shapChart"></canvas></div>
+        </div>
+        <div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:8px">Ring neighborhood (if this transaction belongs to a recovered ring)</p>
+          <div class="graph-wrap" id="detailGraph"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" id="screen-rings">
+    <h2 class="screen-title">Ring Explorer</h2>
+    <p class="screen-sub">Collusion rings recovered by seeding a network from the model's riskiest transactions and running community detection, scored against the ground truth the simulator recorded.</p>
+    <div class="ring-grid" id="ringGrid"></div>
+  </section>
+
+  <section class="screen" id="screen-methodology">
+    <h2 class="screen-title">Methodology</h2>
+    <div class="method-box">
+      <h3>Why simulated data</h3>
+      <p>Real transaction data can't legally be shared, and the standard public fraud dataset (Kaggle's <code>creditcard.csv</code>) has no account IDs, so it can't support network analysis. This project simulates a transaction network with 20 injected money-laundering rings running FATF-documented typologies (structuring/smurfing, layering, round-tripping), so ground truth exists and detection quality can be measured, not claimed.</p>
+      <h3>Classifier</h3>
+      <p>Features are computed causally (no peeking at the future). Train/test split is time-based, not a random shuffle. XGBoost vs. a logistic regression baseline, evaluated on precision/recall/PR-AUC, the honest metrics for a ~3% fraud rate, not raw accuracy.</p>
+      <h3>Explainability</h3>
+      <p>Every flagged transaction carries its top SHAP-contributing features, the same style of explanation a compliance audit trail requires.</p>
+      <h3>Graph ring recovery</h3>
+      <p>A subgraph is seeded from the top 5% riskiest transactions, expanded to direct counterparties, then clustered with Louvain community detection. Resolution was swept from 1 to 20 and chosen at 12: the default resolution recovers most of each ring (0.82 recall) but the communities are too coarse to act on (0.07 precision, mostly unrelated accounts pulled in via camouflage transactions). Resolution 12 trades a little recall for communities an investigator could plausibly use (0.77 recall / 0.76 precision).</p>
+      <p>Full write-up, citations and code: <a href="https://github.com/Jeevan-0508/risk-ring" target="_blank">github.com/Jeevan-0508/risk-ring</a></p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  RISK//RING — part of the <a href="https://jeevan-0508.github.io" target="_blank">RISK// portfolio</a>. All data on this page is synthetic. MIT licensed.
+</footer>
+
+<script>
+const METRICS = /*__METRICS__*/;
+const GRAPH_METRICS = /*__GRAPH_METRICS__*/;
+const ALERTS = /*__ALERTS__*/;
+const RINGS = /*__RINGS__*/;
+
+// ---- nav ----
+document.querySelectorAll('.mainnav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mainnav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('screen-' + btn.dataset.screen).classList.add('active');
+  });
+});
+
+// ---- stat bar ----
+function statHtml(val, lbl) {
+  return `<div class="stat-item"><div class="stat-val">${val}</div><div class="stat-lbl">${lbl}</div></div>`;
+}
+document.getElementById('statBar').innerHTML =
+  statHtml(METRICS.dataset.total_transactions.toLocaleString(), 'transactions simulated') +
+  statHtml(METRICS.dataset.fraud_rate_pct + '%', 'fraud rate') +
+  statHtml(METRICS.xgboost.precision, 'model precision (XGBoost)') +
+  statHtml(METRICS.xgboost.pr_auc, 'PR-AUC') +
+  statHtml(GRAPH_METRICS.avg_ring_recall, 'ring recall (graph)') +
+  statHtml(GRAPH_METRICS.avg_ring_precision, 'ring precision (graph)');
+
+// ---- alert queue ----
+const tbody = document.getElementById('alertsBody');
+ALERTS.forEach((a, i) => {
+  const tr = document.createElement('tr');
+  const riskClass = a.risk_score >= 0.8 ? 'risk-hi' : 'risk-md';
+  tr.innerHTML = `
+    <td><span class="risk-badge ${riskClass}">${a.risk_score.toFixed(2)}</span></td>
+    <td class="mono">${a.tx_id}</td>
+    <td class="mono">${a.orig}</td>
+    <td class="mono">${a.dest}</td>
+    <td>€${a.amount.toLocaleString()}</td>
+    <td>${a.tx_type}</td>
+    <td>${a.ring_id ? `<span class="ring-badge">${a.typology}</span>` : ''}</td>`;
+  tr.addEventListener('click', () => openDetail(a));
+  tbody.appendChild(tr);
+});
+
+let shapChartInstance = null;
+let detailNetwork = null;
+
+function openDetail(a) {
+  document.getElementById('detailTitle').textContent = `Case: ${a.tx_id}`;
+  document.getElementById('dOrig').textContent = a.orig;
+  document.getElementById('dDest').textContent = a.dest;
+  document.getElementById('dAmount').textContent = '€' + a.amount.toLocaleString();
+  document.getElementById('dType').textContent = a.tx_type;
+  document.getElementById('dScore').textContent = a.risk_score.toFixed(4);
+  document.getElementById('dTruth').textContent = a.is_fraud_ground_truth
+    ? `Known ring (${a.typology})` : 'Not part of an injected ring';
+  document.getElementById('detailPanel').classList.add('open');
+
+  if (shapChartInstance) shapChartInstance.destroy();
+  const ctx = document.getElementById('shapChart').getContext('2d');
+  shapChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: a.top_factors.map(f => f.feature),
+      datasets: [{
+        data: a.top_factors.map(f => f.shap_value),
+        backgroundColor: a.top_factors.map(f => f.shap_value >= 0 ? '#ef4444' : '#3b82f6'),
+      }]
+    },
+    options: {
+      indexAxis: 'y',
+      plugins: { legend: { display: false }, title: { display: true, text: 'SHAP contribution to risk score', color: '#94a3b8' } },
+      scales: {
+        x: { ticks: { color: '#94a3b8' }, grid: { color: '#2d3150' } },
+        y: { ticks: { color: '#e2e8f0' }, grid: { color: '#2d3150' } }
+      }
+    }
+  });
+
+  const ring = RINGS.find(r => r.ring_id === a.ring_id);
+  const graphDiv = document.getElementById('detailGraph');
+  if (detailNetwork) { detailNetwork.destroy(); detailNetwork = null; }
+  graphDiv.innerHTML = '';
+  if (ring) {
+    detailNetwork = renderRingGraph(graphDiv, ring);
+  } else {
+    graphDiv.innerHTML = '<p style="color:var(--muted);font-size:12px;padding:16px">Not part of a recovered ring.</p>';
+  }
+}
+document.getElementById('closeDetail').addEventListener('click', () => {
+  document.getElementById('detailPanel').classList.remove('open');
+});
+
+function renderRingGraph(container, ring) {
+  const nodes = new vis.DataSet(ring.nodes.map(n => ({
+    id: n.id, label: n.id, color: '#818cf8', font: { color: '#e2e8f0', size: 10 }
+  })));
+  const edges = new vis.DataSet(ring.edges.map(e => ({ from: e.source, to: e.target, width: Math.min(e.weight, 4) })));
+  return new vis.Network(container, { nodes, edges }, {
+    physics: { stabilization: true },
+    edges: { color: '#6366f1', arrows: 'to' },
+    interaction: { hover: true },
+  });
+}
+
+// ---- ring explorer ----
+const ringGrid = document.getElementById('ringGrid');
+RINGS.sort((a, b) => b.recall - a.recall).forEach(ring => {
+  const card = document.createElement('div');
+  card.className = 'ring-card';
+  card.innerHTML = `
+    <div class="ring-card-head">
+      <b>Ring ${ring.ring_id}</b>
+      <span class="typology-pill typology-${ring.typology}">${ring.typology}</span>
+    </div>
+    <div class="ring-graph" id="ringgraph-${ring.ring_id}"></div>
+    <div class="ring-metrics">
+      <span>Recall <b>${ring.recall}</b></span>
+      <span>Precision <b>${ring.precision}</b></span>
+      <span>${ring.nodes.length} accounts</span>
+    </div>`;
+  ringGrid.appendChild(card);
+  renderRingGraph(card.querySelector('.ring-graph'), ring);
+});
+</script>
+</body>
+</html>
