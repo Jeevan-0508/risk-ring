@@ -1,10 +1,19 @@
+<p align="center"><img src="assets/jk-brand-banner.png" alt="Jeevan Siddhabhaktula: Risk. Governance. AI." width="280"></p>
+
+<div align="center">
+
 # RISK//RING
 
-Financial-crime network intelligence: a trained fraud classifier with honest
+**Financial-crime network intelligence: a trained fraud classifier with honest
 metrics, SHAP explainability, and graph-based collusion-ring detection,
-evaluated against known ground truth instead of asserted.
+evaluated against known ground truth instead of asserted.**
 
-**Live: [jeevan-0508.github.io/risk-ring](https://jeevan-0508.github.io/risk-ring/)**
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-jeevan--0508.github.io-38bdf8?style=for-the-badge)](https://jeevan-0508.github.io/risk-ring/)
+[![License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](LICENSE)
+[![Tests](https://img.shields.io/badge/Tests-10%2F10_passing-22c55e?style=for-the-badge)](tests)
+[![Stack](https://img.shields.io/badge/Stack-Python%20%7C%20SHAP%20%7C%20NetworkX-818cf8?style=for-the-badge)](#architecture)
+
+</div>
 
 Part of the RISK// family alongside [risk-os](https://github.com/Jeevan-0508/risk-os),
 [risk-replay](https://github.com/Jeevan-0508/risk-replay) and
@@ -110,11 +119,20 @@ offline in Python and exports small JSON files. The shipped site is static
 — no backend, no live retraining, same hosting pattern as the rest of the
 RISK// family.
 
-```
-simulate/generate.py   -> data/transactions.csv
-model/train.py         -> data/metrics.json, data/alerts.json, data/all_scored.csv
-graph/analyze.py       -> data/rings.json, data/graph_metrics.json
-site/                  -> static investigator console reading the JSON above
+```mermaid
+flowchart LR
+    S["simulate/generate.py"] --> D1["data/transactions.csv"]
+    D1 --> M["model/train.py"]
+    M --> D2["data/metrics.json
+data/alerts.json
+data/all_scored.csv"]
+    D1 --> G["graph/analyze.py"]
+    D2 --> G
+    G --> D3["data/rings.json
+data/graph_metrics.json"]
+    D2 --> SITE["site/build.py
+static investigator console"]
+    D3 --> SITE
 ```
 
 Reproduce: `pip install -r requirements.txt && python simulate/generate.py
