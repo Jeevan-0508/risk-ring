@@ -1,0 +1,48 @@
+name: Weekly synthetic network analysis
+
+# RISK//RING's current input is its own deterministic, synthetic transaction
+# network. This workflow reruns the existing simulator/classifier/graph
+# pipeline; it does not claim access to real customer or transaction data.
+on:
+  schedule:
+    - cron: '0 8 * * 1' # 08:00 UTC every Monday
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: risk-ring-analysis
+  cancel-in-progress: false
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install analysis dependencies
+        run: pip install -r requirements.txt
+      - name: Run the existing tests
+        run: pytest -q
+      - name: Generate the deterministic synthetic network
+        run: python simulate/generate.py
+      - name: Train the existing classifier and export alerts
+        run: python model/train.py
+      - name: Run the existing graph/ring analysis
+        run: python graph/analyze.py
+      - name: Rebuild the static investigator view
+        run: python site/build.py
+      - name: Commit only meaningful analysis changes
+        run: |
+          git config user.name "risk-ring-analysis-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/alerts.json data/graph_metrics.json data/metrics.json data/rings.json site/index.html
+          if git diff --cached --quiet; then
+            echo "NO_CHANGE: deterministic synthetic network and findings are unchanged."
+            exit 0
+          fi
+          git commit -m "Weekly synthetic network analysis"
+          git push

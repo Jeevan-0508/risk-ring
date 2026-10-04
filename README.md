@@ -146,6 +146,14 @@ origin), causal feature engineering (features never see the future), and
 the graph-evaluation function (recall/precision math against toy ground
 truth).
 
+## Weekly analysis
+
+`.github/workflows/weekly-analysis.yml` reruns the existing simulator,
+classifier, graph analysis, and static-site build every Monday, with a manual
+Run Workflow option. The pipeline is intentionally synthetic and deterministic:
+it never claims access to real transaction or customer data, and it commits only
+when the generated findings actually differ.
+
 ## License
 
 MIT
