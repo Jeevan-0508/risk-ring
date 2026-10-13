@@ -15,6 +15,8 @@ evaluated against known ground truth instead of asserted.**
 
 </div>
 
+<p align="center"><a href="docs/getting-started.md">Getting started</a> · <a href="docs/quality-review.md">Quality review</a></p>
+
 Part of the RISK// family alongside [risk-os](https://github.com/Jeevan-0508/risk-os),
 [risk-replay](https://github.com/Jeevan-0508/risk-replay) and
 [risk-swarm](https://github.com/Jeevan-0508/risk-swarm).
