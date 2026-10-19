@@ -1,96 +1,9 @@
 [
   {
-    "tx_id": "T0016189",
-    "orig": "R004_hop0",
-    "dest": "R004_hop1",
-    "amount": 39474.17,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "004",
-    "typology": "layering",
-    "top_factors": [
-      {
-        "feature": "amount",
-        "shap_value": 6.1009
-      },
-      {
-        "feature": "pair_prior_count",
-        "shap_value": 2.6512
-      },
-      {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 1.7431
-      },
-      {
-        "feature": "near_threshold",
-        "shap_value": 1.1492
-      }
-    ]
-  },
-  {
-    "tx_id": "T0017069",
-    "orig": "R002_loop0",
-    "dest": "R002_loop1",
-    "amount": 7137.04,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "002",
-    "typology": "round_trip",
-    "top_factors": [
-      {
-        "feature": "pair_prior_count",
-        "shap_value": 3.6719
-      },
-      {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.4963
-      },
-      {
-        "feature": "amount",
-        "shap_value": 3.314
-      },
-      {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.4582
-      }
-    ]
-  },
-  {
-    "tx_id": "T0016822",
-    "orig": "R002_loop0",
-    "dest": "R002_loop1",
-    "amount": 5164.34,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "002",
-    "typology": "round_trip",
-    "top_factors": [
-      {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.4169
-      },
-      {
-        "feature": "pair_prior_count",
-        "shap_value": 3.4165
-      },
-      {
-        "feature": "amount",
-        "shap_value": 3.2354
-      },
-      {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.6213
-      }
-    ]
-  },
-  {
-    "tx_id": "T0017417",
-    "orig": "R005_loop3",
-    "dest": "R005_loop0",
-    "amount": 7236.15,
+    "tx_id": "T0018003",
+    "orig": "R005_loop1",
+    "dest": "R005_loop2",
+    "amount": 5442.63,
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
@@ -98,165 +11,20 @@
     "typology": "round_trip",
     "top_factors": [
       {
-        "feature": "pair_prior_count",
-        "shap_value": 3.9267
-      },
-      {
         "feature": "dest_tx_count_prior",
-        "shap_value": 3.5476
+        "shap_value": 3.9537
       },
       {
         "feature": "amount",
-        "shap_value": 3.1826
+        "shap_value": 3.376
       },
-      {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.1599
-      }
-    ]
-  },
-  {
-    "tx_id": "T0017510",
-    "orig": "R017_loop3",
-    "dest": "R017_loop0",
-    "amount": 5769.59,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "017",
-    "typology": "round_trip",
-    "top_factors": [
       {
         "feature": "pair_prior_count",
-        "shap_value": 3.5681
+        "shap_value": 3.2921
       },
       {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.5018
-      },
-      {
-        "feature": "amount",
-        "shap_value": 3.2301
-      },
-      {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.1647
-      }
-    ]
-  },
-  {
-    "tx_id": "T0016139",
-    "orig": "R005_loop3",
-    "dest": "R005_loop0",
-    "amount": 5047.95,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "005",
-    "typology": "round_trip",
-    "top_factors": [
-      {
-        "feature": "pair_prior_count",
-        "shap_value": 3.5094
-      },
-      {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.3796
-      },
-      {
-        "feature": "amount",
-        "shap_value": 3.0672
-      },
-      {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.6374
-      }
-    ]
-  },
-  {
-    "tx_id": "T0018260",
-    "orig": "R017_loop2",
-    "dest": "R017_loop3",
-    "amount": 7316.84,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "017",
-    "typology": "round_trip",
-    "top_factors": [
-      {
-        "feature": "pair_prior_count",
-        "shap_value": 3.7395
-      },
-      {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.5008
-      },
-      {
-        "feature": "amount",
-        "shap_value": 3.2737
-      },
-      {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.2932
-      }
-    ]
-  },
-  {
-    "tx_id": "T0018023",
-    "orig": "R017_loop0",
-    "dest": "R017_loop1",
-    "amount": 7287.59,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "017",
-    "typology": "round_trip",
-    "top_factors": [
-      {
-        "feature": "pair_prior_count",
-        "shap_value": 3.7839
-      },
-      {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.7043
-      },
-      {
-        "feature": "amount",
-        "shap_value": 3.2537
-      },
-      {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.1188
-      }
-    ]
-  },
-  {
-    "tx_id": "T0017181",
-    "orig": "R005_loop0",
-    "dest": "R005_loop1",
-    "amount": 7304.57,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "005",
-    "typology": "round_trip",
-    "top_factors": [
-      {
-        "feature": "pair_prior_count",
-        "shap_value": 3.8399
-      },
-      {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.3099
-      },
-      {
-        "feature": "amount",
-        "shap_value": 3.1829
-      },
-      {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.127
+        "feature": "dest_fanin_prior",
+        "shap_value": 0.9601
       }
     ]
   },
@@ -272,49 +40,20 @@
     "typology": "round_trip",
     "top_factors": [
       {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.6676
+        "feature": "amount",
+        "shap_value": 3.5818
       },
       {
         "feature": "pair_prior_count",
-        "shap_value": 3.5969
-      },
-      {
-        "feature": "amount",
-        "shap_value": 3.3265
-      },
-      {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.2966
-      }
-    ]
-  },
-  {
-    "tx_id": "T0016571",
-    "orig": "R002_loop0",
-    "dest": "R002_loop1",
-    "amount": 5160.24,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "002",
-    "typology": "round_trip",
-    "top_factors": [
-      {
-        "feature": "pair_prior_count",
-        "shap_value": 3.5589
-      },
-      {
-        "feature": "amount",
-        "shap_value": 3.2805
+        "shap_value": 3.5218
       },
       {
         "feature": "dest_tx_count_prior",
-        "shap_value": 3.1623
+        "shap_value": 1.9412
       },
       {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.5789
+        "feature": "dest_fanin_prior",
+        "shap_value": 1.7928
       }
     ]
   },
@@ -331,135 +70,164 @@
     "top_factors": [
       {
         "feature": "pair_prior_count",
-        "shap_value": 3.8282
-      },
-      {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.6793
+        "shap_value": 3.7436
       },
       {
         "feature": "amount",
-        "shap_value": 3.2646
+        "shap_value": 3.3172
       },
       {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.0977
+        "feature": "dest_tx_count_prior",
+        "shap_value": 2.3828
+      },
+      {
+        "feature": "dest_fanin_prior",
+        "shap_value": 1.2791
       }
     ]
   },
   {
-    "tx_id": "T0017122",
-    "orig": "R002_loop2",
-    "dest": "R002_loop0",
-    "amount": 7087.89,
+    "tx_id": "T0017417",
+    "orig": "R005_loop3",
+    "dest": "R005_loop0",
+    "amount": 7236.15,
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "002",
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
-        "feature": "pair_prior_count",
-        "shap_value": 4.0918
+        "feature": "dest_tx_count_prior",
+        "shap_value": 4.7268
       },
       {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.7067
+        "feature": "pair_prior_count",
+        "shap_value": 3.9049
       },
       {
         "feature": "amount",
-        "shap_value": 3.2494
+        "shap_value": 3.2036
       },
       {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.659
+        "feature": "dest_fanin_prior",
+        "shap_value": -0.6776
       }
     ]
   },
   {
-    "tx_id": "T0016627",
-    "orig": "R002_loop2",
-    "dest": "R002_loop0",
-    "amount": 5344.8,
+    "tx_id": "T0017367",
+    "orig": "R005_loop2",
+    "dest": "R005_loop3",
+    "amount": 7241.07,
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "002",
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
         "feature": "dest_tx_count_prior",
-        "shap_value": 3.6348
+        "shap_value": 4.8538
       },
       {
         "feature": "pair_prior_count",
-        "shap_value": 3.4865
+        "shap_value": 3.8937
       },
       {
         "feature": "amount",
-        "shap_value": 3.2447
+        "shap_value": 3.2103
       },
       {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.4098
+        "feature": "dest_fanin_prior",
+        "shap_value": -0.7874
       }
     ]
   },
   {
-    "tx_id": "T0016984",
-    "orig": "R002_loop2",
-    "dest": "R002_loop0",
-    "amount": 5281.3,
+    "tx_id": "T0018338",
+    "orig": "R016_hop0",
+    "dest": "R016_hop1",
+    "amount": 23699.2,
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "002",
-    "typology": "round_trip",
+    "ring_id": "016",
+    "typology": "layering",
     "top_factors": [
       {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.5025
+        "feature": "amount",
+        "shap_value": 5.01
       },
       {
         "feature": "pair_prior_count",
-        "shap_value": 3.3787
+        "shap_value": 2.7646
       },
       {
-        "feature": "amount",
-        "shap_value": 3.2616
+        "feature": "dest_tx_count_prior",
+        "shap_value": 2.7337
       },
       {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.2191
+        "feature": "time_since_orig_last",
+        "shap_value": 0.901
       }
     ]
   },
   {
-    "tx_id": "T0017742",
-    "orig": "R017_loop2",
-    "dest": "R017_loop3",
-    "amount": 6285.96,
+    "tx_id": "T0017181",
+    "orig": "R005_loop0",
+    "dest": "R005_loop1",
+    "amount": 7304.57,
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "017",
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
-        "feature": "pair_prior_count",
-        "shap_value": 3.645
+        "feature": "dest_tx_count_prior",
+        "shap_value": 3.9862
       },
       {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.3899
+        "feature": "pair_prior_count",
+        "shap_value": 3.7723
       },
       {
         "feature": "amount",
-        "shap_value": 3.3667
+        "shap_value": 3.2927
       },
       {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.4019
+        "feature": "near_threshold",
+        "shap_value": 0.8123
+      }
+    ]
+  },
+  {
+    "tx_id": "T0014390",
+    "orig": "R011_loop2",
+    "dest": "R011_loop0",
+    "amount": 6231.03,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "011",
+    "typology": "round_trip",
+    "top_factors": [
+      {
+        "feature": "dest_tx_count_prior",
+        "shap_value": 3.9216
+      },
+      {
+        "feature": "amount",
+        "shap_value": 3.408
+      },
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 3.2946
+      },
+      {
+        "feature": "near_threshold",
+        "shap_value": 0.8304
       }
     ]
   },
@@ -475,28 +243,28 @@
     "typology": "round_trip",
     "top_factors": [
       {
-        "feature": "pair_prior_count",
-        "shap_value": 3.5276
+        "feature": "dest_tx_count_prior",
+        "shap_value": 4.5455
       },
       {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.4493
+        "feature": "pair_prior_count",
+        "shap_value": 3.5761
       },
       {
         "feature": "amount",
-        "shap_value": 3.3485
+        "shap_value": 3.3295
       },
       {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.5073
+        "feature": "dest_fanin_prior",
+        "shap_value": -1.0313
       }
     ]
   },
   {
-    "tx_id": "T0017347",
+    "tx_id": "T0018023",
     "orig": "R017_loop0",
     "dest": "R017_loop1",
-    "amount": 5710.35,
+    "amount": 7287.59,
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
@@ -505,19 +273,251 @@
     "top_factors": [
       {
         "feature": "dest_tx_count_prior",
-        "shap_value": 3.7
+        "shap_value": 4.8612
       },
       {
         "feature": "pair_prior_count",
-        "shap_value": 3.5354
+        "shap_value": 3.8128
       },
       {
         "feature": "amount",
-        "shap_value": 3.3486
+        "shap_value": 3.2587
       },
       {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.4139
+        "feature": "near_threshold",
+        "shap_value": 0.8684
+      }
+    ]
+  },
+  {
+    "tx_id": "T0017094",
+    "orig": "R002_loop1",
+    "dest": "R002_loop2",
+    "amount": 7232.79,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "002",
+    "typology": "round_trip",
+    "top_factors": [
+      {
+        "feature": "dest_tx_count_prior",
+        "shap_value": 4.2554
+      },
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 3.7987
+      },
+      {
+        "feature": "amount",
+        "shap_value": 3.2808
+      },
+      {
+        "feature": "near_threshold",
+        "shap_value": 1.0241
+      }
+    ]
+  },
+  {
+    "tx_id": "T0017069",
+    "orig": "R002_loop0",
+    "dest": "R002_loop1",
+    "amount": 7137.04,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "002",
+    "typology": "round_trip",
+    "top_factors": [
+      {
+        "feature": "dest_tx_count_prior",
+        "shap_value": 4.3431
+      },
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 3.6778
+      },
+      {
+        "feature": "amount",
+        "shap_value": 3.1623
+      },
+      {
+        "feature": "near_threshold",
+        "shap_value": 0.944
+      }
+    ]
+  },
+  {
+    "tx_id": "T0015209",
+    "orig": "R014_loop0",
+    "dest": "R014_loop1",
+    "amount": 3933.56,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "014",
+    "typology": "round_trip",
+    "top_factors": [
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 3.6214
+      },
+      {
+        "feature": "amount",
+        "shap_value": 3.1853
+      },
+      {
+        "feature": "dest_fanin_prior",
+        "shap_value": 1.6988
+      },
+      {
+        "feature": "near_threshold",
+        "shap_value": 1.0669
+      }
+    ]
+  },
+  {
+    "tx_id": "T0018260",
+    "orig": "R017_loop2",
+    "dest": "R017_loop3",
+    "amount": 7316.84,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "017",
+    "typology": "round_trip",
+    "top_factors": [
+      {
+        "feature": "dest_tx_count_prior",
+        "shap_value": 4.5301
+      },
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 3.5561
+      },
+      {
+        "feature": "amount",
+        "shap_value": 3.2612
+      },
+      {
+        "feature": "near_threshold",
+        "shap_value": 0.8751
+      }
+    ]
+  },
+  {
+    "tx_id": "T0017630",
+    "orig": "R017_loop1",
+    "dest": "R017_loop2",
+    "amount": 6281.35,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "017",
+    "typology": "round_trip",
+    "top_factors": [
+      {
+        "feature": "dest_tx_count_prior",
+        "shap_value": 4.6452
+      },
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 3.3791
+      },
+      {
+        "feature": "amount",
+        "shap_value": 3.3659
+      },
+      {
+        "feature": "near_threshold",
+        "shap_value": 0.9357
+      }
+    ]
+  },
+  {
+    "tx_id": "T0018277",
+    "orig": "R005_loop3",
+    "dest": "R005_loop0",
+    "amount": 5435.54,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "005",
+    "typology": "round_trip",
+    "top_factors": [
+      {
+        "feature": "dest_tx_count_prior",
+        "shap_value": 4.9987
+      },
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 3.6396
+      },
+      {
+        "feature": "amount",
+        "shap_value": 3.1754
+      },
+      {
+        "feature": "dest_fanin_prior",
+        "shap_value": -0.938
+      }
+    ]
+  },
+  {
+    "tx_id": "T0018318",
+    "orig": "R017_loop3",
+    "dest": "R017_loop0",
+    "amount": 7439.82,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "017",
+    "typology": "round_trip",
+    "top_factors": [
+      {
+        "feature": "dest_tx_count_prior",
+        "shap_value": 4.9163
+      },
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 3.8648
+      },
+      {
+        "feature": "amount",
+        "shap_value": 3.2466
+      },
+      {
+        "feature": "dest_fanin_prior",
+        "shap_value": -1.0666
+      }
+    ]
+  },
+  {
+    "tx_id": "T0017547",
+    "orig": "R017_loop0",
+    "dest": "R017_loop1",
+    "amount": 6243.02,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "017",
+    "typology": "round_trip",
+    "top_factors": [
+      {
+        "feature": "dest_tx_count_prior",
+        "shap_value": 4.8922
+      },
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 3.782
+      },
+      {
+        "feature": "amount",
+        "shap_value": 3.2963
+      },
+      {
+        "feature": "near_threshold",
+        "shap_value": 0.9862
       }
     ]
   },
@@ -534,77 +534,19 @@
     "top_factors": [
       {
         "feature": "amount",
-        "shap_value": 6.2402
+        "shap_value": 6.258
       },
       {
         "feature": "pair_prior_count",
-        "shap_value": 2.9119
+        "shap_value": 2.8102
       },
       {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 1.2825
+        "feature": "dest_fanin_prior",
+        "shap_value": 0.8563
       },
       {
         "feature": "near_threshold",
-        "shap_value": 1.0727
-      }
-    ]
-  },
-  {
-    "tx_id": "T0017875",
-    "orig": "R005_loop0",
-    "dest": "R005_loop1",
-    "amount": 5462.27,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "005",
-    "typology": "round_trip",
-    "top_factors": [
-      {
-        "feature": "pair_prior_count",
-        "shap_value": 3.4806
-      },
-      {
-        "feature": "amount",
-        "shap_value": 3.2592
-      },
-      {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.2511
-      },
-      {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.2994
-      }
-    ]
-  },
-  {
-    "tx_id": "T0018160",
-    "orig": "R017_loop1",
-    "dest": "R017_loop2",
-    "amount": 7234.51,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "017",
-    "typology": "round_trip",
-    "top_factors": [
-      {
-        "feature": "pair_prior_count",
-        "shap_value": 3.8597
-      },
-      {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.5184
-      },
-      {
-        "feature": "amount",
-        "shap_value": 3.1964
-      },
-      {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.1539
+        "shap_value": 0.8292
       }
     ]
   },
@@ -620,202 +562,144 @@
     "typology": "round_trip",
     "top_factors": [
       {
-        "feature": "pair_prior_count",
-        "shap_value": 3.4408
+        "feature": "dest_tx_count_prior",
+        "shap_value": 4.933
       },
       {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.415
+        "feature": "pair_prior_count",
+        "shap_value": 3.6216
       },
       {
         "feature": "amount",
-        "shap_value": 3.3018
+        "shap_value": 3.1737
       },
       {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.3921
+        "feature": "dest_fanin_prior",
+        "shap_value": -0.966
       }
     ]
   },
   {
-    "tx_id": "T0017402",
-    "orig": "R017_loop2",
-    "dest": "R017_loop3",
-    "amount": 5624.65,
+    "tx_id": "T0018141",
+    "orig": "R005_loop2",
+    "dest": "R005_loop3",
+    "amount": 5289.54,
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "017",
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
-        "feature": "pair_prior_count",
-        "shap_value": 3.4577
+        "feature": "dest_tx_count_prior",
+        "shap_value": 4.8414
       },
       {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.3324
+        "feature": "pair_prior_count",
+        "shap_value": 3.6344
       },
       {
         "feature": "amount",
-        "shap_value": 3.2919
+        "shap_value": 3.2016
       },
       {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.5656
+        "feature": "near_threshold",
+        "shap_value": 0.8684
       }
     ]
   },
   {
-    "tx_id": "T0017094",
-    "orig": "R002_loop1",
-    "dest": "R002_loop2",
-    "amount": 7232.79,
+    "tx_id": "T0018278",
+    "orig": "R006_smurf3",
+    "dest": "R006_collector",
+    "amount": 8388.26,
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "002",
+    "ring_id": "006",
+    "typology": "smurfing",
+    "top_factors": [
+      {
+        "feature": "dest_tx_count_prior",
+        "shap_value": 4.5845
+      },
+      {
+        "feature": "amount",
+        "shap_value": 3.7542
+      },
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 2.7791
+      },
+      {
+        "feature": "time_since_orig_last",
+        "shap_value": 1.6997
+      }
+    ]
+  },
+  {
+    "tx_id": "T0016139",
+    "orig": "R005_loop3",
+    "dest": "R005_loop0",
+    "amount": 5047.95,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
-        "feature": "pair_prior_count",
-        "shap_value": 3.8323
-      },
-      {
         "feature": "dest_tx_count_prior",
-        "shap_value": 3.6905
-      },
-      {
-        "feature": "amount",
-        "shap_value": 3.2412
-      },
-      {
-        "feature": "near_threshold",
-        "shap_value": 1.1528
-      }
-    ]
-  },
-  {
-    "tx_id": "T0015685",
-    "orig": "R013_hop2",
-    "dest": "R013_hop3",
-    "amount": 31026.82,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "013",
-    "typology": "layering",
-    "top_factors": [
-      {
-        "feature": "amount",
-        "shap_value": 6.1482
+        "shap_value": 4.7656
       },
       {
         "feature": "pair_prior_count",
-        "shap_value": 3.5274
+        "shap_value": 3.6009
       },
-      {
-        "feature": "near_threshold",
-        "shap_value": 1.3579
-      },
-      {
-        "feature": "hour_of_day",
-        "shap_value": -1.2541
-      }
-    ]
-  },
-  {
-    "tx_id": "T0015563",
-    "orig": "R013_hop0",
-    "dest": "R013_hop1",
-    "amount": 33881.71,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "013",
-    "typology": "layering",
-    "top_factors": [
       {
         "feature": "amount",
-        "shap_value": 6.47
-      },
-      {
-        "feature": "pair_prior_count",
-        "shap_value": 3.0707
+        "shap_value": 3.1515
       },
       {
         "feature": "near_threshold",
-        "shap_value": 1.2263
-      },
-      {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.1978
+        "shap_value": 0.8684
       }
     ]
   },
   {
-    "tx_id": "T0017547",
-    "orig": "R017_loop0",
-    "dest": "R017_loop1",
-    "amount": 6243.02,
+    "tx_id": "T0017875",
+    "orig": "R005_loop0",
+    "dest": "R005_loop1",
+    "amount": 5462.27,
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
-    "ring_id": "017",
+    "ring_id": "005",
     "typology": "round_trip",
     "top_factors": [
       {
-        "feature": "pair_prior_count",
-        "shap_value": 3.4773
+        "feature": "dest_tx_count_prior",
+        "shap_value": 3.9387
       },
       {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.4729
+        "feature": "pair_prior_count",
+        "shap_value": 3.5148
       },
       {
         "feature": "amount",
-        "shap_value": 3.3647
+        "shap_value": 3.1826
       },
       {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.2516
+        "feature": "dest_fanin_prior",
+        "shap_value": -0.9819
       }
     ]
   },
   {
-    "tx_id": "T0016108",
-    "orig": "R002_loop0",
-    "dest": "R002_loop1",
-    "amount": 5062.95,
-    "tx_type": "TRANSFER",
-    "risk_score": 1.0,
-    "is_fraud_ground_truth": 1,
-    "ring_id": "002",
-    "typology": "round_trip",
-    "top_factors": [
-      {
-        "feature": "pair_prior_count",
-        "shap_value": 3.5941
-      },
-      {
-        "feature": "amount",
-        "shap_value": 3.266
-      },
-      {
-        "feature": "dest_tx_count_prior",
-        "shap_value": 3.1484
-      },
-      {
-        "feature": "near_threshold",
-        "shap_value": 1.4457
-      }
-    ]
-  },
-  {
-    "tx_id": "T0016252",
-    "orig": "R004_hop2",
-    "dest": "R004_hop3",
-    "amount": 35985.14,
+    "tx_id": "T0016245",
+    "orig": "R004_hop1",
+    "dest": "R004_hop2",
+    "amount": 38019.52,
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
@@ -824,27 +708,27 @@
     "top_factors": [
       {
         "feature": "amount",
-        "shap_value": 6.3487
+        "shap_value": 6.3196
       },
       {
         "feature": "pair_prior_count",
-        "shap_value": 3.1509
+        "shap_value": 2.5766
       },
       {
         "feature": "near_threshold",
-        "shap_value": 1.5103
+        "shap_value": 1.3971
       },
       {
         "feature": "dest_fanin_prior",
-        "shap_value": 0.1588
+        "shap_value": 0.996
       }
     ]
   },
   {
-    "tx_id": "T0016938",
-    "orig": "R002_loop1",
-    "dest": "R002_loop2",
-    "amount": 5056.63,
+    "tx_id": "T0016571",
+    "orig": "R002_loop0",
+    "dest": "R002_loop1",
+    "amount": 5160.24,
     "tx_type": "TRANSFER",
     "risk_score": 1.0,
     "is_fraud_ground_truth": 1,
@@ -853,19 +737,135 @@
     "top_factors": [
       {
         "feature": "dest_tx_count_prior",
-        "shap_value": 3.5407
+        "shap_value": 3.6494
       },
       {
         "feature": "pair_prior_count",
-        "shap_value": 3.5155
+        "shap_value": 3.466
       },
       {
         "feature": "amount",
-        "shap_value": 3.1848
+        "shap_value": 3.2505
       },
       {
-        "feature": "orig_tx_count_prior",
-        "shap_value": 1.2811
+        "feature": "near_threshold",
+        "shap_value": 0.9498
+      }
+    ]
+  },
+  {
+    "tx_id": "T0017017",
+    "orig": "R017_loop1",
+    "dest": "R017_loop2",
+    "amount": 5524.02,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "017",
+    "typology": "round_trip",
+    "top_factors": [
+      {
+        "feature": "dest_tx_count_prior",
+        "shap_value": 3.6819
+      },
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 3.4106
+      },
+      {
+        "feature": "amount",
+        "shap_value": 3.1544
+      },
+      {
+        "feature": "time_since_orig_last",
+        "shap_value": 0.6015
+      }
+    ]
+  },
+  {
+    "tx_id": "T0015610",
+    "orig": "R013_hop1",
+    "dest": "R013_hop2",
+    "amount": 32800.27,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "013",
+    "typology": "layering",
+    "top_factors": [
+      {
+        "feature": "amount",
+        "shap_value": 5.975
+      },
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 2.4596
+      },
+      {
+        "feature": "dest_tx_count_prior",
+        "shap_value": 1.488
+      },
+      {
+        "feature": "near_threshold",
+        "shap_value": 0.8077
+      }
+    ]
+  },
+  {
+    "tx_id": "T0014521",
+    "orig": "R016_hop1",
+    "dest": "R016_hop2",
+    "amount": 33489.89,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "016",
+    "typology": "layering",
+    "top_factors": [
+      {
+        "feature": "amount",
+        "shap_value": 6.507
+      },
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 2.576
+      },
+      {
+        "feature": "near_threshold",
+        "shap_value": 1.3291
+      },
+      {
+        "feature": "orig_fanout_prior",
+        "shap_value": -0.5774
+      }
+    ]
+  },
+  {
+    "tx_id": "T0018160",
+    "orig": "R017_loop1",
+    "dest": "R017_loop2",
+    "amount": 7234.51,
+    "tx_type": "TRANSFER",
+    "risk_score": 1.0,
+    "is_fraud_ground_truth": 1,
+    "ring_id": "017",
+    "typology": "round_trip",
+    "top_factors": [
+      {
+        "feature": "dest_tx_count_prior",
+        "shap_value": 4.2709
+      },
+      {
+        "feature": "pair_prior_count",
+        "shap_value": 3.5484
+      },
+      {
+        "feature": "amount",
+        "shap_value": 3.3239
+      },
+      {
+        "feature": "near_threshold",
+        "shap_value": 0.8461
       }
     ]
   }
