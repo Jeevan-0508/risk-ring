@@ -1,10 +1,10 @@
 {
   "seed_percentile": 0.95,
-  "subgraph_nodes": 2104,
-  "subgraph_edges": 10370,
-  "communities_detected": 228,
-  "avg_ring_recall": 0.774,
-  "avg_ring_precision": 0.832,
+  "subgraph_nodes": 2103,
+  "subgraph_edges": 10325,
+  "communities_detected": 226,
+  "avg_ring_recall": 0.775,
+  "avg_ring_precision": 0.785,
   "rings_recovered_ge_30pct": 20,
   "total_true_rings": 20,
   "per_ring": [
@@ -12,15 +12,15 @@
       "ring_id": "010",
       "typology": "layering",
       "recall": 1.0,
-      "precision": 0.625,
+      "precision": 0.714,
       "true_size": 5,
-      "matched_community_size": 8
+      "matched_community_size": 7
     },
     {
       "ring_id": "015",
       "typology": "smurfing",
-      "recall": 0.455,
-      "precision": 0.5,
+      "recall": 0.545,
+      "precision": 0.6,
       "true_size": 11,
       "matched_community_size": 10
     },
@@ -36,17 +36,17 @@
       "ring_id": "013",
       "typology": "layering",
       "recall": 0.833,
-      "precision": 0.833,
+      "precision": 0.714,
       "true_size": 6,
-      "matched_community_size": 6
+      "matched_community_size": 7
     },
     {
       "ring_id": "000",
       "typology": "smurfing",
-      "recall": 0.5,
-      "precision": 0.636,
+      "recall": 0.429,
+      "precision": 0.6,
       "true_size": 14,
-      "matched_community_size": 11
+      "matched_community_size": 10
     },
     {
       "ring_id": "004",
@@ -68,9 +68,9 @@
       "ring_id": "001",
       "typology": "layering",
       "recall": 0.833,
-      "precision": 1.0,
+      "precision": 0.833,
       "true_size": 6,
-      "matched_community_size": 5
+      "matched_community_size": 6
     },
     {
       "ring_id": "005",
@@ -84,17 +84,17 @@
       "ring_id": "012",
       "typology": "smurfing",
       "recall": 0.444,
-      "precision": 0.667,
+      "precision": 0.444,
       "true_size": 9,
-      "matched_community_size": 6
+      "matched_community_size": 9
     },
     {
       "ring_id": "009",
       "typology": "smurfing",
       "recall": 0.455,
-      "precision": 0.625,
+      "precision": 0.714,
       "true_size": 11,
-      "matched_community_size": 8
+      "matched_community_size": 7
     },
     {
       "ring_id": "019",
@@ -116,17 +116,17 @@
       "ring_id": "006",
       "typology": "smurfing",
       "recall": 0.5,
-      "precision": 0.6,
+      "precision": 0.545,
       "true_size": 12,
-      "matched_community_size": 10
+      "matched_community_size": 11
     },
     {
       "ring_id": "011",
       "typology": "round_trip",
       "recall": 1.0,
-      "precision": 1.0,
+      "precision": 0.5,
       "true_size": 4,
-      "matched_community_size": 4
+      "matched_community_size": 8
     },
     {
       "ring_id": "002",
@@ -164,9 +164,9 @@
       "ring_id": "016",
       "typology": "layering",
       "recall": 0.833,
-      "precision": 0.833,
+      "precision": 0.714,
       "true_size": 6,
-      "matched_community_size": 6
+      "matched_community_size": 7
     }
   ]
 }
